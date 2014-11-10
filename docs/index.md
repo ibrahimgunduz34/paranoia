@@ -9,6 +9,8 @@
     * [3D Secure İle Ödeme İşlemi](#)
         * [Bankaya Gönderilecek Form İçeriğinin Oluşturulması](#)
         * [Bankadan Dönen Bilgilerle Ödeme İşleminin Gerçekleştirilmesi](#)
+    * [Ön Otorizasyon](#)
+    * [Otorizasyon Onaylama](#)
     * [İptal İşlemi](#)
     * [İade İşlemi](#)
 * [Mobil Ödeme Sistemlerinin Kullanımı](#)
