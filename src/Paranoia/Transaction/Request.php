@@ -30,7 +30,31 @@ class Request implements TransactionInterface
     private $resource;
 
     /**
+     * @var int
+     */
+    private $installment;
+
+    /**
+     * @param string $transactionId
+     * @return $this
+     */
+    public function setTransactionId($transactionId)
+    {
+        $this->transactionId = $transactionId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTransactionId()
+    {
+        return $this->transactionId;
+    }
+
+    /**
      * @param float $amount
+     * @return $this;
      */
     public function setAmount($amount)
     {
@@ -48,6 +72,7 @@ class Request implements TransactionInterface
 
     /**
      * @param string $currency
+     * @return $this;
      */
     public function setCurrency($currency)
     {
@@ -64,7 +89,26 @@ class Request implements TransactionInterface
     }
 
     /**
+     * @param int $installment
+     * @return $this;
+     */
+    public function setInstallment($installment)
+    {
+        $this->installment = $installment;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInstallment()
+    {
+        return $this->installment;
+    }
+
+    /**
      * @param string $orderId
+     * @return $this;
      */
     public function setOrderId($orderId)
     {
@@ -82,6 +126,7 @@ class Request implements TransactionInterface
 
     /**
      * @param \Paranoia\Transaction\Resource\ResourceInterface $resource
+     * @return $this;
      */
     public function setResource($resource)
     {
@@ -91,27 +136,10 @@ class Request implements TransactionInterface
 
     /**
      * @return \Paranoia\Transaction\Resource\ResourceInterface
+     * @return $this;
      */
     public function getResource()
     {
         return $this->resource;
     }
-
-    /**
-     * @param string $transactionId
-     */
-    public function setTransactionId($transactionId)
-    {
-        $this->transactionId = $transactionId;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTransactionId()
-    {
-        return $this->transactionId;
-    }
-
 } 

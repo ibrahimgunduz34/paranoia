@@ -1,8 +1,14 @@
 <?php
 namespace Paranoia\Pos;
 
+use Exception;
+use Guzzle\Http\Client;
+use JMS\Serializer\SerializerBuilder;
+use Paranoia\Payment\Exception\UnexpectedResponse;
 use Paranoia\Pos\Est\CC5Request;
 use Paranoia\Transaction\Request;
+use Paranoia\Transaction\Response;
+use SimpleXMLElement;
 
 class Est extends PosAbstract
 {
@@ -11,11 +17,29 @@ class Est extends PosAbstract
     const POS_CURRENCY_CODE_EUR = '978';
     const POS_CURRENCY_CODE_USD = '848';
 
-    private $currencyMap = array(
-        Constants::CURRENCY_CODE_TRL => self::POS_CURRENCY_CODE_TRL,
-        Constants::CURRENCY_CODE_EUR => self::POS_CURRENCY_CODE_EUR,
-        Constants::CURRENCY_CODE_USD => self::POS_CURRENCY_CODE_USD,
+    /* Transaction types that supported by provider */
+    const POS_TRANSACTION_TYPE_SALE = 'Auth';
+    const POS_TRANSACTION_TYPE_CANCEL = 'Void';
+    const POS_TRANSACTION_TYPE_REFUND = 'Credit';
+
+    /**
+     * @var array
+     */
+    protected $currencyMap = array(
+        self::CURRENCY_CODE_TRL => self::POS_CURRENCY_CODE_TRL,
+        self::CURRENCY_CODE_EUR => self::POS_CURRENCY_CODE_EUR,
+        self::CURRENCY_CODE_USD => self::POS_CURRENCY_CODE_USD,
     );
+
+    /**
+     * @var array
+     */
+    protected $transactionTypeMap = array(
+        self::TRANSACTION_TYPE_SALE   => self::POS_TRANSACTION_TYPE_SALE,
+        self::TRANSACTION_TYPE_CANCEL => self::POS_TRANSACTION_TYPE_CANCEL,
+        self::TRANSACTION_TYPE_REFUND => self::POS_TRANSACTION_TYPE_REFUND
+    );
+
 
     private function buildBaseRequest(Request $request)
     {
@@ -37,7 +61,7 @@ class Est extends PosAbstract
         /** @var $data \Paranoia\Pos\Est\CC5Request */
         $data = $this->buildBaseRequest($request);
 
-        $data->setType('Auth');
+        $data->setType(self::POS_TRANSACTION_TYPE_SALE);
         $data->setOrderId($this->formatOrderId($request->getOrderId()));
         $data->setTotal($this->normalizeAmount($request->getAmount()));
         $data->setCurrency($this->formatCurrency($request->getCurrency()));
@@ -60,7 +84,16 @@ class Est extends PosAbstract
      */
     protected function buildCancelRequest(Request $request)
     {
-        // TODO: Implement buildCancelRequest() method.
+        /** @var $data \Paranoia\Pos\Est\CC5Request */
+        $data = $this->buildBaseRequest($request);
+
+        $data->setType(self::POS_TRANSACTION_TYPE_CANCEL);
+        if($request->getTransactionId()) {
+            $data->setTransId($request->getTransactionId());
+        } else {
+            $data->setOrderId($request->getOrderId());
+        }
+        return $data;
     }
 
     /**
@@ -69,52 +102,42 @@ class Est extends PosAbstract
      */
     protected function buildRefundRequest(Request $request)
     {
-        // TODO: Implement buildRefundRequest() method.
+        /** @var $data \Paranoia\Pos\Est\CC5Request */
+        $data = $this->buildBaseRequest($request);
+
+        $data->setType(self::POS_TRANSACTION_TYPE_REFUND);
+        $data->setOrderId($this->formatOrderId($request->getOrderId()));
+        $data->setTotal($this->toConcatenatedAmount($request->getAmount()));
+        $data->setCurrency($this->formatCurrency($request->getCurrency()));
+
+        return $data;
     }
 
     /**
-     * @param mixed $rawRequest
+     * @param mixed $rawResponse
      * @return \Paranoia\Transaction\Response
      */
-    protected function parseSaleResponse($rawRequest)
+    protected function parseSaleResponse($rawResponse)
     {
-        // TODO: Implement parseSaleResponse() method.
+        return $this->parseResponse($rawResponse);
     }
 
     /**
-     * @param mixed $rawRequest
+     * @param mixed $rawResponse
      * @return \Paranoia\Transaction\Response
      */
     protected function parseCancelResponse($rawResponse)
     {
-        // TODO: Implement parseCancelResponse() method.
+        return $this->parseResponse($rawResponse);
     }
 
     /**
-     * @param mixed $rawRequest
+     * @param mixed $rawResponse
      * @return \Paranoia\Transaction\Response
      */
     protected function parseRefundResponse($rawResponse)
     {
-        // TODO: Implement parseRefundResponse() method.
-    }
-
-    /**
-     * @param mixed $rawRequest
-     * @return \Paranoia\Transaction\Response
-     */
-    protected function parsePreAuthorizationResponse($rawResponse)
-    {
-        // TODO: Implement parsePreAuthorizationResponse() method.
-    }
-
-    /**
-     * @param mixed $rawRequest
-     * @return \Paranoia\Transaction\Response
-     */
-    protected function parsePostAuthorizationResponse($rawResponse)
-    {
-        // TODO: Implement parsePostAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse);
     }
 
     /**
@@ -123,7 +146,7 @@ class Est extends PosAbstract
      */
     public function sale(Request $request)
     {
-        // TODO: Implement sale() method.
+        return $this->makeRequest('buildSaleRequest', 'parseSaleResponse', $request);
     }
 
     /**
@@ -132,7 +155,7 @@ class Est extends PosAbstract
      */
     public function cancel(Request $request)
     {
-        // TODO: Implement cancel() method.
+        return $this->makeRequest('buildCancelRequest', 'parseCancelResponse', $request);
     }
 
     /**
@@ -141,7 +164,7 @@ class Est extends PosAbstract
      */
     public function refund(Request $request)
     {
-        // TODO: Implement refund() method.
+        return $this->makeRequest('buildRefundRequest', 'parseRefundResponse', $request);
     }
 
     /**
@@ -154,18 +177,69 @@ class Est extends PosAbstract
         return sprintf('%02s/20%s', $month, substr((string) $year, -2));
     }
 
+    /**
+     * @param function $builder
+     * @param function $parser
+     * @param \Paranoia\Transaction\Request $request
+     * @return string
+     * @throws ConnectionError
+     */
     private function makeRequest($builder, $parser, Request $request)
     {
         $data = $this->{$builder}($request);
         $serializer = SerializerBuilder::create()->build();
         $rawRequest = $serializer->serialize($data, 'xml');
-        $httpRequest = $this->client->post($this->getConfig()->getApiUrl());
+        $client = new Client();
+        $httpRequest = $client->post($this->getConfig()->getApiUrl());
         $httpRequest->setPostField('DATA', $rawRequest);
         try {
             $httpResponse = $httpRequest->send();
+
             return $this->{$parser}($httpResponse->getBody(true));
         } catch(\Guzzle\Http\Exception\CurlException $e) {
-            throw new ConnectionError();
+            throw new ConnectionError($e->getMessage());
         }
+    }
+
+    /**
+     * @param string $rawResponse
+     * @return \Paranoia\Transaction\Response
+     * @throws \Paranoia\Payment\Exception\UnexpectedResponse
+     */
+    protected function parseResponse($rawResponse)
+    {
+        try {
+            $xml = new SimpleXMLElement($rawResponse);
+        } catch (Exception $e) {
+             $errorMessage = sprintf(
+                 'Unexpected error message returned from the provider. Detail:%s, Response:%s',
+                 $e->getMessage(), $rawResponse
+             );
+             throw new UnexpectedResponse($errorMessage);
+        }
+        $response = new Response();
+        $response->setApproved($xml->Response == 'Approved');
+        $response->setCode((string) $xml->ProcReturnCode);
+        if(!$response->isApproved()) {
+            $errorMessages = array();
+
+            if (property_exists($xml, 'Error')) {
+                $errorMessages[] = sprintf('Error: %s', (string)$xml->Error);
+            }
+
+            if (property_exists($xml, 'ErrMsg')) {
+                $errorMessages[] = sprintf('Error Message: %s ', (string)$xml->ErrMsg);
+            }
+
+            if (property_exists($xml, 'Extra') && property_exists($xml->Extra, 'HOSTMSG')) {
+                $errorMessages[] = sprintf('Host Message: %s', (string)$xml->Extra->HOSTMSG);
+            }
+
+            $errorMessage = implode(' ', $errorMessages);
+            $response->setMessage($errorMessage);
+        } else {
+            $response->setTransactionId((string) $xml->TransId);
+        }
+        return $response;
     }
 }
