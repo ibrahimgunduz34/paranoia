@@ -4,9 +4,9 @@ namespace Paranoia\Pos\Gvp;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class GVPSRequest
+ * Class GVPRequest
  * @package Paranoia\Pos\Gvp
- * @JMS\XmlRoot('GVPSRequest')
+ * @JMS\XmlRoot("GVPSRequest")
  */
 class GVPSRequest
 {
@@ -28,15 +28,15 @@ class GVPSRequest
 
     /**
      * @var \Paranoia\Pos\Gvp\Terminal
-     * @JMS\Type("\Paranoia\Pos\Gvp\Terminal")
+     * @JMS\Type("Paranoia\Pos\Gvp\Terminal")
      * @JMS\SerializedName("Terminal")
      * @JMS\XmlElement(cdata=false)
      */
     private $terminal;
 
     /**
-     * @var \Paranoia\Pos\Gvp\Order
-     * @JMS\Type("\Paranoia\Pos\Gvp\Order")
+     * @var \Paranoia\Pos\Gvp\Orderl
+     * @JMS\Type("Paranoia\Pos\Gvp\Order")
      * @JMS\SerializedName("Order")
      * @JMS\XmlElement(cdata=false)
      */
@@ -44,7 +44,7 @@ class GVPSRequest
 
     /**
      * @var \Paranoia\Pos\Gvp\Customer
-     * @JMS\Type("\Paranoia\Pos\Gvp\Customer")
+     * @JMS\Type("Paranoia\Pos\Gvp\Customer")
      * @JMS\SerializedName("Customer")
      * @JMS\XmlElement(cdata=false)
      */
@@ -52,7 +52,7 @@ class GVPSRequest
 
     /**
      * @var \Paranoia\Pos\Gvp\Transaction
-     * @JMS\Type("\Paranoia\Pos\Gvp\Transaction")
+     * @JMS\Type("Paranoia\Pos\Gvp\Transaction")
      * @JMS\SerializedName("Transaction")
      * @JMS\XmlElement(cdata=false)
      */
@@ -60,7 +60,7 @@ class GVPSRequest
 
     /**
      * @var \Paranoia\Pos\Gvp\Card
-     * @JMS\Type("\Paranoia\Pos\Gvp\Card")
+     * @JMS\Type("Paranoia\Pos\Gvp\Card")
      * @JMS\SerializedName("Card")
      * @JMS\XmlElement(cdata=false)
      */

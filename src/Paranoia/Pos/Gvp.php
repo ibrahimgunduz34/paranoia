@@ -3,6 +3,9 @@ namespace Paranoia\Pos;
 
 
 use Exception;
+use Guzzle\Http\Client;
+use JMS\Serializer\SerializerBuilder;
+use Paranoia\Exception\ConnectionError;
 use Paranoia\Payment\Exception\UnexpectedResponse;
 use Paranoia\Pos\Gvp\Card;
 use Paranoia\Pos\Gvp\Customer;
@@ -12,6 +15,7 @@ use Paranoia\Pos\Gvp\Terminal;
 use Paranoia\Pos\Gvp\Transaction;
 use Paranoia\Transaction\Request;
 use Paranoia\Transaction\Response;
+use SimpleXMLElement;
 
 class Gvp extends PosAbstract
 {
@@ -102,6 +106,7 @@ class Gvp extends PosAbstract
             ->setUserId($username)
             ->setProvUserId($username)
             ->setHashData($hash);
+        
         return $terminal;
     }
 
@@ -321,8 +326,10 @@ class Gvp extends PosAbstract
         $serializer = SerializerBuilder::create()->build();
         $rawRequest = $serializer->serialize($data, 'xml');
         $client = new Client();
-        $httpRequest = $client->post($this->getConfig()->getApiUrl());
-        $httpRequest->setPostField('DATA', $rawRequest);
+        $httpRequest = $client->post($this->getConfig()->getApiUrl(), null, null, array('verify' => false));
+    print $rawRequest;
+
+        $httpRequest->setPostField('data', $rawRequest);
         try {
             $httpResponse = $httpRequest->send();
 
@@ -340,6 +347,7 @@ class Gvp extends PosAbstract
     protected function parseResponse($rawResponse)
     {
         try {
+            print $rawResponse;
             $xml = new SimpleXMLElement($rawResponse);
         } catch (Exception $e) {
             $errorMessage = sprintf(
