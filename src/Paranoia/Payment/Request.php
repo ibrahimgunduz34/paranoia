@@ -3,7 +3,6 @@ namespace Paranoia\Payment;
 
 class Request implements TransferInterface
 {
-
     /**
      * @var string
      */

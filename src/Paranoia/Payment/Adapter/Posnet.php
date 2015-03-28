@@ -3,10 +3,14 @@ namespace Paranoia\Payment\Adapter;
 
 use Paranoia\Common\Serializer\Serializer;
 use Paranoia\Payment\PaymentEventArg;
-use Paranoia\Payment\Request;
+use Paranoia\Payment\Request\CancelRequest;
+use Paranoia\Payment\Request\PostAuthorizationRequest;
+use Paranoia\Payment\Request\PreAuthorizationRequest;
+use Paranoia\Payment\Request\RefundRequest;
+use Paranoia\Payment\Request\RequestInterface;
+use Paranoia\Payment\Request\SaleRequest;
 use Paranoia\Payment\Response\PaymentResponse;
 use Paranoia\Payment\Exception\UnexpectedResponse;
-use Paranoia\Payment\Exception\UnimplementedMethod;
 
 class Posnet extends AdapterAbstract
 {
@@ -28,8 +32,6 @@ class Posnet extends AdapterAbstract
         self::TRANSACTION_TYPE_SALE              => 'sale',
         self::TRANSACTION_TYPE_CANCEL            => 'reverse',
         self::TRANSACTION_TYPE_REFUND            => 'return',
-        self::TRANSACTION_TYPE_POINT_QUERY       => 'pointinquiry',
-        self::TRANSACTION_TYPE_POINT_USAGE       => 'pointusage',
     );
 
     /**
@@ -49,7 +51,7 @@ class Posnet extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildRequest()
      */
-    protected function buildRequest(Request $request, $requestBuilder)
+    protected function buildRequest(RequestInterface $request, $requestBuilder)
     {
         $rawRequest = call_user_func(array( $this, $requestBuilder ), $request);
         $serializer = new Serializer(Serializer::XML);
@@ -64,7 +66,7 @@ class Posnet extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildPreauthorizationRequest()
      */
-    protected function buildPreauthorizationRequest(Request $request)
+    protected function buildPreauthorizationRequest(PreAuthorizationRequest $request)
     {
         $amount      = $this->formatAmount($request->getAmount());
         $installment = $this->formatInstallment($request->getInstallment());
@@ -92,7 +94,7 @@ class Posnet extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildPostAuthorizationRequest()
      */
-    protected function buildPostAuthorizationRequest(Request $request)
+    protected function buildPostAuthorizationRequest(PostAuthorizationRequest $request)
     {
         $amount      = $this->formatAmount($request->getAmount());
         $installment = $this->formatInstallment($request->getInstallment());
@@ -117,7 +119,7 @@ class Posnet extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildSaleRequest()
      */
-    protected function buildSaleRequest(Request $request)
+    protected function buildSaleRequest(SaleRequest $request)
     {
         $amount      = $this->formatAmount($request->getAmount());
         $installment = $this->formatInstallment($request->getInstallment());
@@ -145,7 +147,7 @@ class Posnet extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildRefundRequest()
      */
-    protected function buildRefundRequest(Request $request)
+    protected function buildRefundRequest(RefundRequest $request)
     {
         $amount      = $this->formatAmount($request->getAmount());
         $currency    = $this->formatCurrency($request->getCurrency());
@@ -164,7 +166,7 @@ class Posnet extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildCancelRequest()
      */
-    protected function buildCancelRequest(Request $request)
+    protected function buildCancelRequest(CancelRequest $request)
     {
         $type        = $this->getProviderTransactionType(self::TRANSACTION_TYPE_CANCEL);
         $requestData = array(
@@ -175,24 +177,6 @@ class Posnet extends AdapterAbstract
             )
         );
         return $requestData;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see Paranoia\Payment\Adapter\AdapterAbstract::parseResponse()
-     */
-    protected function buildPointQueryRequest(Request $request)
-    {
-        throw new UnimplementedMethod();
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see Paranoia\Payment\Adapter\AdapterAbstract::buildPointUsageRequest()
-     */
-    protected function buildPointUsageRequest(Request $request)
-    {
-        throw new UnimplementedMethod();
     }
 
     /**
@@ -288,5 +272,50 @@ class Posnet extends AdapterAbstract
     protected function formatOrderId($orderId)
     {
         return str_repeat('0', 24 - strlen($orderId)) . $orderId;
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\PreAuthorizationResponse
+     */
+    protected function parsePreAuthorizationResponse($rawResponse)
+    {
+        // TODO: Implement parsePreAuthorizationResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\PostAuthorizationResponse
+     */
+    protected function parsePostAuthorizationResponse($rawResponse)
+    {
+        // TODO: Implement parsePostAuthorizationResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\SaleResponse
+     */
+    protected function parseSaleResponse($rawResponse)
+    {
+        // TODO: Implement parseSaleResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\RefundResponse
+     */
+    protected function parseRefundResponse($rawResponse)
+    {
+        // TODO: Implement parseRefundResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\CancelResponse
+     */
+    protected function parseCancelResponse($rawResponse)
+    {
+        // TODO: Implement parseCancelResponse() method.
     }
 }

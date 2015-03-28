@@ -4,7 +4,12 @@ namespace Paranoia\Payment\Adapter;
 use Guzzle\Http\Client as HttpClient;
 use Paranoia\Configuration\AbstractConfiguration;
 use Paranoia\Payment\Exception\CommunicationError;
-use Paranoia\Payment\Request;
+use Paranoia\Payment\Request\CancelRequest;
+use Paranoia\Payment\Request\PostAuthorizationRequest;
+use Paranoia\Payment\Request\PreAuthorizationRequest;
+use Paranoia\Payment\Request\RefundRequest;
+use Paranoia\Payment\Request\RequestInterface;
+use Paranoia\Payment\Request\SaleRequest;
 use Paranoia\Payment\Response;
 use Paranoia\Payment\Exception\UnknownTransactionType;
 use Paranoia\Payment\Exception\UnknownCurrencyCode;
@@ -27,8 +32,6 @@ abstract class AdapterAbstract
     const TRANSACTION_TYPE_SALE = 'sale';
     const TRANSACTION_TYPE_CANCEL = 'cancel';
     const TRANSACTION_TYPE_REFUND = 'refund';
-    const TRANSACTION_TYPE_POINT_QUERY = 'pointQuery';
-    const TRANSACTION_TYPE_POINT_USAGE = 'pointUsage';
 
     /**
      * @var array
@@ -81,67 +84,86 @@ abstract class AdapterAbstract
     /**
      * build request data for preauthorization transaction.
      *
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\PreAuthorizationRequest $request
      *
      * @return mixed
      */
-    abstract protected function buildPreAuthorizationRequest(Request $request);
+    abstract protected function buildPreAuthorizationRequest(PreAuthorizationRequest $request);
 
     /**
-     * build request data for postauthorization transaction.
-     *
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\PostAuthorizationRequest $request
      *
      * @return mixed
      */
-    abstract protected function buildPostAuthorizationRequest(Request $request);
+    abstract protected function buildPostAuthorizationRequest(PostAuthorizationRequest $request);
 
     /**
      * build request data for sale transaction.
      *
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\SaleRequest $request
      *
      * @return mixed
      */
-    abstract protected function buildSaleRequest(Request $request);
+    abstract protected function buildSaleRequest(SaleRequest $request);
 
     /**
      * build request data for refund transaction.
      *
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\RefundRequest $request
      *
      * @return mixed
      */
-    abstract protected function buildRefundRequest(Request $request);
+    abstract protected function buildRefundRequest(RefundRequest $request);
 
     /**
      * build request data for cancel transaction.
      *
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\CancelRequest $request
      *
      * @return mixed
      */
-    abstract protected function buildCancelRequest(Request $request);
+    abstract protected function buildCancelRequest(CancelRequest $request);
 
     /**
      *  build complete raw data for the specified request.
      *
-     * @param \Paranoia\Payment\Request $request
-     * @param string                    $requestBuilder
+     * @param \Paranoia\Payment\Request\RequestInterface $request
+     * @param string $requestBuilder
      *
      * @return mixed
      */
-    abstract protected function buildRequest(Request $request, $requestBuilder);
+    abstract protected function buildRequest(RequestInterface $request, $requestBuilder);
 
     /**
-     * parses response from returned provider.
-     *
-     * @param string $rawResponse
-     * @param string $transactionType
-     *
-     * @return \Paranoia\Payment\Response\PaymentResponse
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\PreAuthorizationResponse
      */
-    abstract protected function parseResponse($rawResponse, $transactionType);
+    abstract protected function parsePreAuthorizationResponse($rawResponse);
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\PostAuthorizationResponse
+     */
+    abstract protected function parsePostAuthorizationResponse($rawResponse);
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\SaleResponse
+     */
+    abstract protected function parseSaleResponse($rawResponse);
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\RefundResponse
+     */
+    abstract protected function parseRefundResponse($rawResponse);
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\CancelResponse
+     */
+    abstract protected function parseCancelResponse($rawResponse);
+
 
     /**
      * Makes http request to remote host.
@@ -259,11 +281,11 @@ abstract class AdapterAbstract
     }
 
     /**
-     * @param \Paranoia\Payment\Request $request
+     * @param PreAuthorizationRequest $request
      *
      * @return \Paranoia\Payment\Response\PaymentResponse
      */
-    public function preAuthorization(Request $request)
+    public function preAuthorization(PreAuthorizationRequest $request)
     {
         $rawRequest  = $this->buildRequest($request, 'buildPreauthorizationRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
@@ -272,11 +294,11 @@ abstract class AdapterAbstract
     }
 
     /**
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\PostAuthorizationRequest $request
      *
      * @return \Paranoia\Payment\Response\PaymentResponse
      */
-    public function postAuthorization(Request $request)
+    public function postAuthorization(PostAuthorizationRequest $request)
     {
         $rawRequest  = $this->buildRequest($request, 'buildPostAuthorizationRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
@@ -285,11 +307,11 @@ abstract class AdapterAbstract
     }
 
     /**
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\SaleRequest $request
      *
      * @return \Paranoia\Payment\Response\PaymentResponse
      */
-    public function sale(Request $request)
+    public function sale(SaleRequest $request)
     {
         $rawRequest  = $this->buildRequest($request, 'buildSaleRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
@@ -298,11 +320,11 @@ abstract class AdapterAbstract
     }
 
     /**
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\RefundRequest $request
      *
      * @return \Paranoia\Payment\Response\PaymentResponse
      */
-    public function refund(Request $request)
+    public function refund(RefundRequest $request)
     {
         $rawRequest  = $this->buildRequest($request, 'buildRefundRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
@@ -311,41 +333,15 @@ abstract class AdapterAbstract
     }
 
     /**
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\CancelRequest $request
      *
      * @return \Paranoia\Payment\Response\PaymentResponse
      */
-    public function cancel(Request $request)
+    public function cancel(CancelRequest $request)
     {
         $rawRequest  = $this->buildRequest($request, 'buildCancelRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
         $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_CANCEL);
-        return $response;
-    }
-
-    /**
-     * @param \Paranoia\Payment\Request $request
-     *
-     * @return \Paranoia\Payment\Response\PaymentResponse
-     */
-    public function pointQuery(Request $request)
-    {
-        $rawRequest  = $this->buildRequest($request, 'buildPointQueryRequest');
-        $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_POINT_QUERY);
-        return $response;
-    }
-
-    /**
-     * @param \Paranoia\Payment\Request $request
-     *
-     * @return \Paranoia\Payment\Response\PaymentResponse
-     */
-    public function pointUsage(Request $request)
-    {
-        $rawRequest  = $this->buildRequest($request, 'buildPointUsageRequest');
-        $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_POINT_USAGE);
         return $response;
     }
 

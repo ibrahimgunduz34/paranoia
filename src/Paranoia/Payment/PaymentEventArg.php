@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\Event;
 class PaymentEventArg extends Event
 {
     /**
-     * @var \Paranoia\Payment\Request
+     * @var \Paranoia\Payment\Request\RequestInterface
      */
     private $request;
 
@@ -29,7 +29,7 @@ class PaymentEventArg extends Event
     {
         $this->request = $request;
         $this->response = $response;
-        $transactionType = $transactionType;
+        $this->transactionType = $transactionType;
         $this->exception = $exception;
     }
 
@@ -50,7 +50,7 @@ class PaymentEventArg extends Event
     }
 
     /**
-     * @param \Paranoia\Payment\Request $request
+     * @param \Paranoia\Payment\Request\RequestInterface $request
      */
     public function setRequest($request)
     {
@@ -58,7 +58,7 @@ class PaymentEventArg extends Event
     }
 
     /**
-     * @return \Paranoia\Payment\Request
+     * @return \Paranoia\Payment\Request\RequestInterface
      */
     public function getRequest()
     {

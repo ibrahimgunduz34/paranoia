@@ -3,7 +3,6 @@ namespace Paranoia\Payment\Response;
 
 abstract class ResponseAbstract
 {
-
     /**
      * @var boolean
      */
@@ -12,45 +11,34 @@ abstract class ResponseAbstract
     /**
      * @var string
      */
-    protected $transactionType;
+    protected $code;
 
     /**
      * @var string
      */
-    protected $orderId;
+    protected $message;
 
     /**
-     * @var string
+     * @param string $code
+     * @return \Paranoia\Payment\Response\ResponseAbstract
      */
-    protected $transactionId;
-
-    /**
-     * @var string
-     */
-    protected $authCode;
-
-    /**
-     * @var integer
-     */
-    protected $responseCode;
-
-    /**
-     * @var string
-     */
-    protected $responseMessage;
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::isSuccess()
-     */
-    public function isSuccess()
+    public function setCode($code)
     {
-        return $this->isSuccess;
+        $this->code = $code;
+        return $this;
     }
 
     /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::setIsSuccess()
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param boolean $isSuccess
+     * @return \Paranoia\Payment\Response\ResponseAbstract
      */
     public function setIsSuccess($isSuccess)
     {
@@ -59,119 +47,28 @@ abstract class ResponseAbstract
     }
 
     /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::getTransactionType()
+     * @return boolean
      */
-    public function getTransactionType()
+    public function isSuccess()
     {
-        return $this->transactionType;
+        return $this->isSuccess;
     }
 
     /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::setTransactionType()
+     * @param string $message
+     * @return \Paranoia\Payment\Response\ResponseAbstract
      */
-    public function setTransactionType($transactionType)
+    public function setMessage($message)
     {
-        $this->transactionType = $transactionType;
+        $this->message = $message;
         return $this;
     }
 
     /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::getOrderId()
-     */
-    public function getOrderId()
-    {
-        return $this->orderId;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::setOrderId()
-     */
-    public function setOrderId($orderId)
-    {
-        $this->orderId = $orderId;
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::getTransactionId()
-     */
-    public function getTransactionId()
-    {
-        return $this->transactionId;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::setTransactionId()
-     */
-    public function setTransactionId($transactionId)
-    {
-        $this->transactionId = $transactionId;
-        return $this;
-    }
-
-    /**
-     * returns auth code.
-     *
      * @return string
      */
-    public function getAuthCode()
+    public function getMessage()
     {
-        return $this->authCode;
+        return $this->message;
     }
-
-    /**
-     * sets auth code to request object.
-     *
-     * @param string $authCode
-     *
-     * @return self
-     */
-    public function setAuthCode($authCode)
-    {
-        $this->authCode = $authCode;
-        return $this;
-    }
-
-    /**
-     * @see \Payment\Response\ResponseInterface::getResponseCode()
-     */
-    public function getResponseCode()
-    {
-        return $this->responseCode;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::setResponseCode()
-     */
-    public function setResponseCode($responseCode)
-    {
-        $this->responseCode = $responseCode;
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::getResponseCode()
-     */
-    public function getResponseMessage()
-    {
-        return $this->responseMessage;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see \Payment\Response\ResponseInterface::setResponseMessage()
-     */
-    public function setResponseMessage($responseMessage)
-    {
-        $this->responseMessage = $responseMessage;
-        return $this;
-    }
-}
+} 

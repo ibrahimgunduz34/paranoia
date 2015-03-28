@@ -3,10 +3,14 @@ namespace Paranoia\Payment\Adapter;
 
 use Paranoia\Common\Serializer\Serializer;
 use Paranoia\Payment\PaymentEventArg;
-use Paranoia\Payment\Request;
+use Paranoia\Payment\Request\CancelRequest;
+use Paranoia\Payment\Request\PostAuthorizationRequest;
+use Paranoia\Payment\Request\PreAuthorizationRequest;
+use Paranoia\Payment\Request\RefundRequest;
+use Paranoia\Payment\Request\RequestInterface;
+use Paranoia\Payment\Request\SaleRequest;
 use Paranoia\Payment\Response\PaymentResponse;
 use Paranoia\Payment\Exception\UnexpectedResponse;
-use Paranoia\Payment\Exception\UnimplementedMethod;
 
 class Gvp extends AdapterAbstract
 {
@@ -19,19 +23,17 @@ class Gvp extends AdapterAbstract
         self::TRANSACTION_TYPE_SALE              => 'sales',
         self::TRANSACTION_TYPE_CANCEL            => 'void',
         self::TRANSACTION_TYPE_REFUND            => 'refund',
-        self::TRANSACTION_TYPE_POINT_QUERY       => 'pointinquiry',
-        self::TRANSACTION_TYPE_POINT_USAGE       => 'pointusage',
     );
 
     /**
      * builds request base with common arguments.
      *
-     * @param Request $request
+     * @param \Paranoia\Payment\Request\RequestInterface $request
      * @param string $transactionType
      *
      * @return array
      */
-    private function buildBaseRequest(Request $request, $transactionType)
+    private function buildBaseRequest(RequestInterface $request, $transactionType)
     {
         $terminal    = $this->buildTerminal($request, $transactionType);
         $customer    = $this->buildCustomer();
@@ -50,12 +52,11 @@ class Gvp extends AdapterAbstract
     /**
      * builds terminal section of request.
      *
-     * @param Request $request
-     * * @param string $transactionType
-     *
+     * @param \Paranoia\Payment\Request\RequestInterface $request
+     * @param string $transactionType
      * @return array
      */
-    private function buildTerminal(Request $request, $transactionType)
+    private function buildTerminal(RequestInterface $request, $transactionType)
     {
         list($username, $password) = $this->getApiCredentialsByRequest($transactionType);
         $hash = $this->getTransactionHash($request, $password, $transactionType);
@@ -88,11 +89,10 @@ class Gvp extends AdapterAbstract
     /**
      * builds card section of request.
      *
-     * @param Request $request
-     *
+     * @param \Paranoia\Payment\Request\RequestInterface $request
      * @return array
      */
-    private function buildCard(Request $request)
+    private function buildCard(RequestInterface $request)
     {
         $expireMonth = $this->formatExpireDate(
             $request->getExpireMonth(),
@@ -108,11 +108,10 @@ class Gvp extends AdapterAbstract
     /**
      * builds order section of request.
      *
-     * @param Request $request
-     *
+     * @param \Paranoia\Payment\Request\RequestInterface $request
      * @return array
      */
-    private function buildOrder(Request $request)
+    private function buildOrder(RequestInterface $request)
     {
         return array(
             'OrderID'     => $this->formatOrderId($request->getOrderId()),
@@ -124,15 +123,15 @@ class Gvp extends AdapterAbstract
     /**
      * builds terminal section of request.
      *
-     * @param Request $request
+     * @param \Paranoia\Payment\Request\RequestInterface $request
      * @param string $transactionType
      * @param integer $cardHolderPresentCode
-     * @param string  $originalRetrefNum
+     * @param string $originalRetrefNum
      *
      * @return array
      */
     private function buildTransaction(
-        Request $request,
+        RequestInterface $request,
         $transactionType,
         $cardHolderPresentCode = 0,
         $originalRetrefNum = null
@@ -238,13 +237,13 @@ class Gvp extends AdapterAbstract
     /**
      * returns transaction hash for using in transaction request.
      *
-     * @param Request $request
-     * @param string  $password
+     * @param \Paranoia\Payment\Request\RequestInterface $request
+     * @param string $password
      * @param string $transactionType
      *
      * @return string
      */
-    private function getTransactionHash(Request $request, $password, $transactionType)
+    private function getTransactionHash(RequestInterface $request, $password, $transactionType)
     {
         $orderId      = $this->formatOrderId($request->getOrderId());
         $terminalId   = $this->configuration->getTerminalId();
@@ -269,7 +268,7 @@ class Gvp extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildRequest()
      */
-    protected function buildRequest(Request $request, $requestBuilder)
+    protected function buildRequest(RequestInterface $request, $requestBuilder)
     {
         $rawRequest = call_user_func(array( $this, $requestBuilder ), $request);
         $serializer = new Serializer(Serializer::XML);
@@ -284,7 +283,7 @@ class Gvp extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildPreauthorizationRequest()
      */
-    protected function buildPreAuthorizationRequest(Request $request)
+    protected function buildPreAuthorizationRequest(PreAuthorizationRequest $request)
     {
         $requestData = array( 'Card' => $this->buildCard($request) );
         return array_merge($requestData, $this->buildBaseRequest($request, self::TRANSACTION_TYPE_PREAUTHORIZATION));
@@ -294,7 +293,7 @@ class Gvp extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildPostAuthorizationRequest()
      */
-    protected function buildPostAuthorizationRequest(Request $request)
+    protected function buildPostAuthorizationRequest(PostAuthorizationRequest $request)
     {
         $requestData = $this->buildBaseRequest($request, self::TRANSACTION_TYPE_POSTAUTHORIZATION);
         return $requestData;
@@ -304,7 +303,7 @@ class Gvp extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildSaleRequest()
      */
-    protected function buildSaleRequest(Request $request)
+    protected function buildSaleRequest(SaleRequest $request)
     {
         $requestData = array( 'Card' => $this->buildCard($request) );
         return array_merge($requestData, $this->buildBaseRequest($request, self::TRANSACTION_TYPE_SALE));
@@ -314,7 +313,7 @@ class Gvp extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildRefundRequest()
      */
-    protected function buildRefundRequest(Request $request)
+    protected function buildRefundRequest(RefundRequest $request)
     {
         return $this->buildBaseRequest($request, self::TRANSACTION_TYPE_REFUND);
     }
@@ -323,31 +322,13 @@ class Gvp extends AdapterAbstract
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::buildCancelRequest()
      */
-    protected function buildCancelRequest(Request $request)
+    protected function buildCancelRequest(CancelRequest $request)
     {
         $requestData                = $this->buildBaseRequest($request, self::TRANSACTION_TYPE_CANCEL);
         $transactionId              = ($request->getTransactionId()) ? $request->getTransactionId() : null;
         $transaction                = $this->buildTransaction($request, 0, $transactionId);
         $requestData['Transaction'] = $transaction;
         return $requestData;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see Paranoia\Payment\Adapter\AdapterAbstract::parseResponse()
-     */
-    protected function buildPointQueryRequest(Request $request)
-    {
-        throw new UnimplementedMethod();
-    }
-
-    /**
-     * {@inheritdoc}
-     * @see Paranoia\Payment\Adapter\AdapterAbstract::buildPointUsageRequest()
-     */
-    protected function buildPointUsageRequest(Request $request)
-    {
-        throw new UnimplementedMethod();
     }
 
     /**
@@ -416,5 +397,50 @@ class Gvp extends AdapterAbstract
     protected function formatExpireDate($month, $year)
     {
         return sprintf('%02s%s', $month, substr($year, -2));
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\PreAuthorizationResponse
+     */
+    protected function parsePreAuthorizationResponse($rawResponse)
+    {
+        // TODO: Implement parsePreAuthorizationResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\PostAuthorizationResponse
+     */
+    protected function parsePostAuthorizationResponse($rawResponse)
+    {
+        // TODO: Implement parsePostAuthorizationResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\SaleResponse
+     */
+    protected function parseSaleResponse($rawResponse)
+    {
+        // TODO: Implement parseSaleResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\RefundResponse
+     */
+    protected function parseRefundResponse($rawResponse)
+    {
+        // TODO: Implement parseRefundResponse() method.
+    }
+
+    /**
+     * @param mixed $rawResponse
+     * @return \Paranoia\Payment\Response\CancelResponse
+     */
+    protected function parseCancelResponse($rawResponse)
+    {
+        // TODO: Implement parseCancelResponse() method.
     }
 }
