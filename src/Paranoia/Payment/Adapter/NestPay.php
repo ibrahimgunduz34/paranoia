@@ -9,8 +9,14 @@ use Paranoia\Payment\Request\PreAuthorizationRequest;
 use Paranoia\Payment\Request\RefundRequest;
 use Paranoia\Payment\Request\RequestInterface;
 use Paranoia\Payment\Request\SaleRequest;
+use Paranoia\Payment\Response\CancelResponse;
 use Paranoia\Payment\Response\PaymentResponse;
 use Paranoia\Payment\Exception\UnexpectedResponse;
+use Paranoia\Payment\Response\PostAuthorizationResponse;
+use Paranoia\Payment\Response\PreAuthorizationResponse;
+use Paranoia\Payment\Response\RefundResponse;
+use Paranoia\Payment\Response\ResponseAbstract;
+use Paranoia\Payment\Response\SaleResponse;
 
 class NestPay extends AdapterAbstract
 {
@@ -153,52 +159,63 @@ class NestPay extends AdapterAbstract
     }
 
     /**
-     * {@inheritdoc}
-     * @see Paranoia\Payment\Adapter\AdapterAbstract::parseResponse()
+     * @param \SimpleXMLElement $xml
+     * @param ResponseAbstract $responseInstance
      */
-    protected function parseResponse($rawResponse, $transactionType)
+    private function parseErrorMessage(\SimpleXMLElement $xml, ResponseAbstract $responseInstance)
     {
-        $response = new PaymentResponse();
+        $errorMessages = array();
+        if (property_exists($xml, 'Error')) {
+            $errorMessages[] = sprintf('Error: %s', (string)$xml->Error);
+        }
+        if (property_exists($xml, 'ErrMsg')) {
+            $errorMessages[] = sprintf(
+                'Error Message: %s ',
+                (string)$xml->ErrMsg
+            );
+        }
+        if (property_exists($xml, 'Extra') && property_exists($xml->Extra, 'HOSTMSG')) {
+            $errorMessages[] = sprintf(
+                'Host Message: %s',
+                (string)$xml->Extra->HOSTMSG
+            );
+        }
+        $errorMessage = implode(' ', $errorMessages);
+        $responseInstance->setMessage($errorMessage);
+    }
+
+    /**
+     * @param $rawResponse
+     * @param ResponseAbstract $responseInstance
+     * @return ResponseAbstract
+     * @throws \Paranoia\Payment\Exception\UnexpectedResponse
+     */
+    private function parseResponse($rawResponse, ResponseAbstract $responseInstance)
+    {
         try {
-            /**
-             * @var object $xml
-             */
+            /** @var $xml \SimpleXMLElement */
             $xml = new \SimpleXmlElement($rawResponse);
-        } catch ( \Exception $e ) {
-            $exception = new UnexpectedResponse('Provider returned unexpected response: ' . $rawResponse);
-            $eventArg = new PaymentEventArg(null, null, $transactionType, $exception);
-            $this->getDispatcher()->dispatch(self::EVENT_ON_EXCEPTION, $eventArg);
-            throw $exception;
+        } catch(\Exception $e) {
+            throw new UnexpectedResponse('Provider returned unexpected response: ' . $rawResponse);
         }
-        $response->setIsSuccess((string)$xml->Response == 'Approved');
-        $response->setResponseCode((string)$xml->ProcReturnCode);
-        if (!$response->isSuccess()) {
-            $errorMessages = array();
-            if (property_exists($xml, 'Error')) {
-                $errorMessages[] = sprintf('Error: %s', (string)$xml->Error);
-            }
-            if (property_exists($xml, 'ErrMsg')) {
-                $errorMessages[] = sprintf(
-                    'Error Message: %s ',
-                    (string)$xml->ErrMsg
-                );
-            }
-            if (property_exists($xml, 'Extra') && property_exists($xml->Extra, 'HOSTMSG')) {
-                $errorMessages[] = sprintf(
-                    'Host Message: %s',
-                    (string)$xml->Extra->HOSTMSG
-                );
-            }
-            $errorMessage = implode(' ', $errorMessages);
-            $response->setResponseMessage($errorMessage);
+
+        $responseInstance->setIsSuccess((string)$xml->Response == 'Approved')
+                         ->setCode((string)$xml->ProcReturnCode);
+
+        if(!$responseInstance->isSuccess()) {
+            $this->parseErrorMessage($xml, $responseInstance);
         } else {
-            $response->setResponseMessage('Success');
-            $response->setOrderId((string)$xml->OrderId);
-            $response->setTransactionId((string)$xml->TransId);
+
+            if(method_exists($responseInstance, 'setOrderId')) {
+                $responseInstance->setOrderId((string)$xml->OrderId);
+            }
+
+            if(method_exists($responseInstance, 'setTransactionId')) {
+                $responseInstance->setTransactionId((string)$xml->TransId);
+            }
+
         }
-        $event = $response->isSuccess() ? self::EVENT_ON_TRANSACTION_SUCCESSFUL : self::EVENT_ON_TRANSACTION_FAILED;
-        $this->getDispatcher()->dispatch($event, new PaymentEventArg(null, $response, $transactionType));
-        return $response;
+        return $responseInstance;
     }
 
     /**
@@ -207,7 +224,7 @@ class NestPay extends AdapterAbstract
      */
     protected function parsePreAuthorizationResponse($rawResponse)
     {
-        // TODO: Implement parsePreAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse, new PreAuthorizationResponse());
     }
 
     /**
@@ -216,7 +233,7 @@ class NestPay extends AdapterAbstract
      */
     protected function parsePostAuthorizationResponse($rawResponse)
     {
-        // TODO: Implement parsePostAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse, new PostAuthorizationResponse());
     }
 
     /**
@@ -225,7 +242,7 @@ class NestPay extends AdapterAbstract
      */
     protected function parseSaleResponse($rawResponse)
     {
-        // TODO: Implement parseSaleResponse() method.
+        return $this->parseResponse($rawResponse, new SaleResponse());
     }
 
     /**
@@ -234,7 +251,7 @@ class NestPay extends AdapterAbstract
      */
     protected function parseRefundResponse($rawResponse)
     {
-        // TODO: Implement parseRefundResponse() method.
+        return $this->parseResponse($rawResponse, new RefundResponse());
     }
 
     /**
@@ -243,6 +260,6 @@ class NestPay extends AdapterAbstract
      */
     protected function parseCancelResponse($rawResponse)
     {
-        // TODO: Implement parseCancelResponse() method.
+        return $this->parseResponse($rawResponse, new CancelResponse());
     }
 }
