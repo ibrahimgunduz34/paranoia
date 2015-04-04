@@ -4,8 +4,8 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <testsuites>
-        <testsuite name="method design pattern">
-            <directory>tests/</directory>
+        <testsuite name="Paranoia">
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>

@@ -1,14 +1,12 @@
 <?php
-namespace Adapter;
-
-
+namespace Paranoia\Tests\Payment\Adapter;
 
 use Paranoia\Configuration\NestPay as NestPayConfig;
 use Paranoia\Payment\Adapter\NestPay;
 use Paranoia\Payment\Request\CancelRequest;
 use Paranoia\Payment\Request\RefundRequest;
-use Paranoia\Payment\Request\SaleRequest;
 use Paranoia\Payment\Adapter\AdapterAbstract;
+use Paranoia\Payment\Request\SaleRequest;
 
 class NestPayTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,7 +60,7 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         return $request;
     }
 
-    protected function testSaleFullRefund()
+    public function testSaleFullRefund()
     {
         $saleRequest = $this->createSaleRequest();
         $orderId = $saleRequest->getOrderId();
@@ -79,7 +77,7 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($refundResponse->isSuccess());
     }
 
-    protected function testSaleAndPartialRefund()
+    public function testSaleAndPartialRefund()
     {
         $saleRequest = $this->createSaleRequest();
         $orderId = $saleRequest->getOrderId();
@@ -102,7 +100,7 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($refundResponse->isSuccess());
     }
 
-    protected function testSaleAndCancel()
+    public function testSaleAndCancel()
     {
         $saleRequest = $this->createSaleRequest();
 
@@ -119,7 +117,7 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($cancelResponse->isSuccess());
     }
 
-    protected function testSaleWithInstallmentFullRefund()
+    public function testSaleWithInstallmentFullRefund()
     {
         $saleRequest = $this->createSaleRequest(null, 10, 3);
         $orderId = $saleRequest->getOrderId();
@@ -136,7 +134,7 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($refundResponse->isSuccess());
     }
 
-    protected function testSaleWithInstallmentAndPartialRefund()
+    public function testSaleWithInstallmentAndPartialRefund()
     {
         $saleRequest = $this->createSaleRequest(null, 10, 3);
         $orderId = $saleRequest->getOrderId();
@@ -159,7 +157,7 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($refundResponse->isSuccess());
     }
 
-    protected function testSaleWithInstallmentAndCancel()
+    public function testSaleWithInstallmentAndCancel()
     {
         $saleRequest = $this->createSaleRequest(null, 10, 3);
 

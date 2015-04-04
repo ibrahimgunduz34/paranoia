@@ -1,1 +1,0 @@
-Döküman, henüz yazım aşamasında.

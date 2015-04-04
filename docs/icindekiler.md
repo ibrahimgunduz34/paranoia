@@ -5,14 +5,21 @@
 	* İade
 	* Ön İzin
 	* Ön İzin İşleminin Satışa Dönüştürülmesi / Onaylanması
-* Veri Tipleri
-	* PreAuthorizationRequest
-	* PostAuthorizationRequest
-	* SaleRequest
-	* RefundRequest
-	* CancelRequest
-	* PreAuthorizationResponse
-	* PostAuthorizationResponse
-	* SaleResponse
-	* RefundResponse
-	* CancelResponse
+* Referans Klavuzu
+	* Adaptörler
+		* Gvp
+		* NestPay
+		* Posnet
+	* İstek Tipleri
+		* [PreAuthorizationRequest](/docs/PreAuthorizationRequest.md)
+		* [PostAuthorizationRequest](/docs/PostAuthorizationRequest.md)
+		* [SaleRequest](/docs/SaleRequest.md)
+		* [RefundRequest](/docs/RefundRequest.md)
+		* [CancelRequest](/docs/CancelRequest.md)
+	* Yanıt Tipleri	
+		* [PreAuthorizationResponse](/docs/PreAuthorizationResponse.md)
+		* [PostAuthorizationResponse](/docs/PostAuthorizationResponse.md)
+		* [SaleResponse](/docs/SaleResponse.md)
+		* [RefundResponse](/docs/RefundResponse.md)
+		* [CancelResponse](/docs/CancelResponse.md)
+
