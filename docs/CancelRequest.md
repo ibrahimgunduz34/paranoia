@@ -2,14 +2,14 @@
 
 CancelRequest, iptal işlemi sırasında gönderilecek parametreleri taşıyan istek nesnesidir. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.)
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Request
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 CancelRequest
 
-**Dosya :**
-/src/Paranoia/Payment/Request/CancelRequest
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Request/CancelRequest.php](/src/Paranoia/Payment/Request/CancelRequest.php)
 
 | Alan          | Tip        | Zorunlu ? | Açıklama                                   |
 |---------------|------------|-----------|--------------------------------------------|

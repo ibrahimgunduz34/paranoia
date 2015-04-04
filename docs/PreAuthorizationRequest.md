@@ -2,14 +2,14 @@
 
 PreAuthorizationRequest, ön onay işlemi sırasında gönderilecek parametreleri taşıyan istek nesnesidir. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.)
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Request
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 PreAuthorizationRequest
 
-**Dosya :**
-/src/Paranoia/Payment/Request/PreAuthorizationRequest
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Request/PreAuthorizationRequest.php](/src/Paranoia/Payment/Request/PreAuthorizationRequest.php)
 
 | Alan          | Tip        | Zorunlu ? | Açıklama                      |
 |---------------|------------|-----------|-------------------------------|

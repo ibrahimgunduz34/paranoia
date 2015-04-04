@@ -2,14 +2,14 @@
 
 CancelResponse, iptal işlemi sonucunda dönen cevaba ilişkin  parametreleri taşıyan yanıt nesnesidir. Aşağıdaki tabloda belirtilen **isSuccess** dışındaki tüm alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.) 
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Response
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 CancelResponse
 
-**Dosya :**
-/src/Paranoia/Payment/Response/CancelResponse
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Response/CancelResponse.php](/src/Paranoia/Payment/Response/CancelResponse.php)
 
 | Alan          | Tip        | Açıklama                                   |
 |---------------|------------|--------------------------------------------|

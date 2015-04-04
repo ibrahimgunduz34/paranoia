@@ -2,14 +2,14 @@
 
 PostAuthorizationResponse, ön izin işleminin satışa dönüştürülmesi işlemi sonucunda dönen cevaba ilişkin  parametreleri taşıyan yanıt nesnesidir. Aşağıdaki tabloda belirtilen **isSuccess** dışındaki tüm alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.) 
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Response
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 PostAuthorizationResponse
 
-**Dosya :**
-/src/Paranoia/Payment/Response/PostAuthorizationResponse
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Response/PostAuthorizationResponse.php](/src/Paranoia/Payment/Response/PostAuthorizationResponse.php)
 
 | Alan          | Tip        | Açıklama                                   |
 |---------------|------------|--------------------------------------------|

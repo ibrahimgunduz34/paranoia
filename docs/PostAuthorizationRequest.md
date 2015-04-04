@@ -2,14 +2,14 @@
 
 PostAuthorizationRequest, ön izin işleminin satışa dönüştürülmesi işlemi sırasında gönderilecek parametreleri taşıyan istek nesnesidir. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.)
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Request
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 PostAuthorizationRequest
 
-**Dosya :**
-/src/Paranoia/Payment/Request/PostAuthorizationRequest
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Request/PostAuthorizationRequest.php](/src/Paranoia/Payment/Response/PostAuthorizationResponse.php)
 
 | Alan          | Tip        | Zorunlu ? | Açıklama                      |
 |---------------|------------|-----------|-------------------------------|

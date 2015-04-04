@@ -2,14 +2,14 @@
 
 RefundResponse, iade işlemi sonucunda dönen cevaba ilişkin  parametreleri taşıyan yanıt nesnesidir. Aşağıdaki tabloda belirtilen **isSuccess** dışındaki tüm alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.) 
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Response
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 RefundResponse
 
-**Dosya :**
-/src/Paranoia/Payment/Response/RefundResponse
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Response/RefundResponse.php](/src/Paranoia/Payment/Response/RefundResponse.php)
 
 | Alan          | Tip        | Açıklama                                   |
 |---------------|------------|--------------------------------------------|

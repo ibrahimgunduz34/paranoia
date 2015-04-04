@@ -2,14 +2,14 @@
 
 RefundRequest, iade işlemi sırasında gönderilecek parametreleri taşıyan istek nesnesidir. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.)
 
-**İsim Uzayı**:
+**İsim Uzayı :**<br/>
 Paranoia\Payment\Request
 
-**Sınıf Adı:**
+**Sınıf Adı :**<br/>
 RefundRequest
 
-**Dosya :**
-/src/Paranoia/Payment/Request/RefundRequest
+**Dosya :**<br/>
+[/src/Paranoia/Payment/Request/RefundRequest.php](/src/Paranoia/Payment/Request/RefundRequest.php)
 
 | Alan          | Tip        | Zorunlu ? | Açıklama                      |
 |---------------|------------|-----------|-------------------------------|
