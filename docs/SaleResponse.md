@@ -11,7 +11,6 @@ SaleResponse
 **Dosya :**
 /src/Paranoia/Payment/Response/SaleResponse
 
-|---------------|------------|--------------------------------------------|
 | Alan          | Tip        | Açıklama                                   |
 |---------------|------------|--------------------------------------------|
 | isSuccess     | Boolean    | İşlemin başarılı olma durumunu gösterir.   |
@@ -19,4 +18,3 @@ SaleResponse
 | Message		| String     | Cevaba ile ilgili mesaj bilgisini içerir.  |
 | OrderId       | String     | Sipariş numarası                           |
 | TransactionId | String     | Banka tarafından üretilen hareket numarası |
-|---------------|------------|--------------------------------------------|

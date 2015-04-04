@@ -11,7 +11,6 @@ SaleRequest
 **Dosya :**
 /src/Paranoia/Payment/Request/SaleRequest
 
-|---------------|------------|-----------|-------------------------------|
 | Alan          | Tip        | Zorunlu ? | Açıklama                      |
 |---------------|------------|-----------|-------------------------------|
 | OrderId       | String     | Evet      | Sipariş numarası              |
@@ -22,4 +21,3 @@ SaleRequest
 | SecurityCode  | Char(3)    | Evet      | CVV Kodu                      |
 | ExpireMonth   | Integer    | Evet      | Kartın son geçerli olduğu ay  |
 | ExpireYear    | Integer    | Evet      | Kartın son geçerli olduğu yıl |
-|---------------|------------|-----------|-------------------------------|

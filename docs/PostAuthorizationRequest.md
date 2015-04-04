@@ -11,8 +11,6 @@ PostAuthorizationRequest
 **Dosya :**
 /src/Paranoia/Payment/Request/PostAuthorizationRequest
 
-|---------------|------------|-----------|-------------------------------|
 | Alan          | Tip        | Zorunlu ? | Açıklama                      |
 |---------------|------------|-----------|-------------------------------|
 | OrderId       | String     | Evet      | Sipariş numarası              |
-|---------------|------------|-----------|-------------------------------|
