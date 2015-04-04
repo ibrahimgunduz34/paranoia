@@ -5,9 +5,13 @@
 	* İade
 	* Ön İzin
 	* Ön İzin İşleminin Satışa Dönüştürülmesi / Onaylanması
-* Referans Klavuzu
+* **Referans Klavuzu**
+	* **Konfigürasyon Tipleri**
+		* [Gvp](/docs/Configuration/Gvp.md)
+		* [NestPay](/docs/Configuration/NestPay.md)
+		* [Posnet](/docs/Configuration/Posnet.md)
 	* **Adaptörler**
-		* Gvp
+		* [Gvp](/docs/Adapter/Gvp.md)
 		* NestPay
 		* Posnet
 	* **İstek Tipleri**
