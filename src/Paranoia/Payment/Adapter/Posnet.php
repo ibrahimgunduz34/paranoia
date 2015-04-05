@@ -9,7 +9,12 @@ use Paranoia\Payment\Request\PreAuthorizationRequest;
 use Paranoia\Payment\Request\RefundRequest;
 use Paranoia\Payment\Request\RequestInterface;
 use Paranoia\Payment\Request\SaleRequest;
-use Paranoia\Payment\Response\PaymentResponse;
+use Paranoia\Payment\Response\CancelResponse;
+use Paranoia\Payment\Response\PostAuthorizationResponse;
+use Paranoia\Payment\Response\PreAuthorizationResponse;
+use Paranoia\Payment\Response\RefundResponse;
+use Paranoia\Payment\Response\ResponseAbstract;
+use Paranoia\Payment\Response\SaleResponse;
 use Paranoia\Payment\Exception\UnexpectedResponse;
 
 class Posnet extends AdapterAbstract

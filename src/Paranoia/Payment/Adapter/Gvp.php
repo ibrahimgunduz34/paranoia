@@ -2,14 +2,18 @@
 namespace Paranoia\Payment\Adapter;
 
 use Paranoia\Common\Serializer\Serializer;
-use Paranoia\Payment\PaymentEventArg;
 use Paranoia\Payment\Request\CancelRequest;
 use Paranoia\Payment\Request\PostAuthorizationRequest;
 use Paranoia\Payment\Request\PreAuthorizationRequest;
 use Paranoia\Payment\Request\RefundRequest;
 use Paranoia\Payment\Request\RequestInterface;
 use Paranoia\Payment\Request\SaleRequest;
-use Paranoia\Payment\Response\PaymentResponse;
+use Paranoia\Payment\Response\CancelResponse;
+use Paranoia\Payment\Response\PostAuthorizationResponse;
+use Paranoia\Payment\Response\PreAuthorizationResponse;
+use Paranoia\Payment\Response\RefundResponse;
+use Paranoia\Payment\Response\ResponseAbstract;
+use Paranoia\Payment\Response\SaleResponse;
 use Paranoia\Payment\Exception\UnexpectedResponse;
 
 class Gvp extends AdapterAbstract
@@ -332,49 +336,56 @@ class Gvp extends AdapterAbstract
     }
 
     /**
+     * @param \SimpleXMLElement $xml
+     * @param ResponseAbstract $responseInstance
+     */
+    private function parseErrorMessage(\SimpleXMLElement $xml, ResponseAbstract $responseInstance)
+    {
+        $errorMessages = array();
+        if (property_exists($xml->Transaction->Response, 'ErrorMsg')) {
+            $errorMessages[] = sprintf(
+                'Error Message: %s',
+                (string)$xml->Transaction->Response->ErrorMsg
+            );
+        }
+        if (property_exists($xml->Transaction->Response, 'SysErrMsg')) {
+            $errorMessages[] = sprintf(
+                'System Error Message: %s',
+                (string)$xml->Transaction->Response->SysErrMsg
+            );
+        }
+        $errorMessage = implode(' ', $errorMessages);
+        $responseInstance->setMessage($errorMessage);
+    }
+
+    /**
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::parseResponse()
      */
-    protected function parseResponse($rawResponse, $transactionType)
+    private function parseResponse($rawResponse, ResponseAbstract $responseInstance)
     {
-        $response = new PaymentResponse();
         try {
-            /**
-             * @var object $xml
-             */
+            /** @var $xml \SimpleXMLElement */
             $xml = new \SimpleXmlElement($rawResponse);
         } catch ( \Exception $e ) {
-            $exception = new UnexpectedResponse('Provider returned unexpected response: ' . $rawResponse);
-            $eventArg = new PaymentEventArg(null, null, $transactionType, $exception);
-            $this->getDispatcher()->dispatch(self::EVENT_ON_EXCEPTION, $eventArg);
-            throw $exception;
+            throw new UnexpectedResponse('Provider returned unexpected response: ' . $rawResponse);
         }
-        $response->setIsSuccess('00' == (string)$xml->Transaction->Response->Code);
-        $response->setResponseCode((string)$xml->Transaction->ReasonCode);
-        if (!$response->isSuccess()) {
-            $errorMessages = array();
-            if (property_exists($xml->Transaction->Response, 'ErrorMsg')) {
-                $errorMessages[] = sprintf(
-                    'Error Message: %s',
-                    (string)$xml->Transaction->Response->ErrorMsg
-                );
-            }
-            if (property_exists($xml->Transaction->Response, 'SysErrMsg')) {
-                $errorMessages[] = sprintf(
-                    'System Error Message: %s',
-                    (string)$xml->Transaction->Response->SysErrMsg
-                );
-            }
-            $errorMessage = implode(' ', $errorMessages);
-            $response->setResponseMessage($errorMessage);
+        $responseInstance->setIsSuccess('00' == (string)$xml->Transaction->Response->Code)
+                         ->setCode((string)$xml->Transaction->ReasonCode);
+        if (!$responseInstance->isSuccess()) {
+            $this->parseErrorMessage($xml, $responseInstance);
         } else {
-            $response->setResponseMessage('Success');
-            $response->setOrderId((string)$xml->Order->OrderID);
-            $response->setTransactionId((string)$xml->Transaction->RetrefNum);
+
+            if(method_exists($responseInstance, 'setOrderId')) {
+                $responseInstance->setOrderId((string)$xml->Order->OrderID);
+            }
+
+            if(method_exists($responseInstance, 'setTransactionId')) {
+                $responseInstance->setTransactionId((string)$xml->Transaction->RetrefNum);
+            }
+
         }
-        $event = $response->isSuccess() ? self::EVENT_ON_TRANSACTION_SUCCESSFUL : self::EVENT_ON_TRANSACTION_FAILED;
-        $this->getDispatcher()->dispatch($event, new PaymentEventArg(null, $response, $transactionType));
-        return $response;
+        return $responseInstance;
     }
 
     /**
@@ -405,7 +416,7 @@ class Gvp extends AdapterAbstract
      */
     protected function parsePreAuthorizationResponse($rawResponse)
     {
-        // TODO: Implement parsePreAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse, new PreAuthorizationResponse());
     }
 
     /**
@@ -414,7 +425,7 @@ class Gvp extends AdapterAbstract
      */
     protected function parsePostAuthorizationResponse($rawResponse)
     {
-        // TODO: Implement parsePostAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse, new PostAuthorizationResponse());
     }
 
     /**
@@ -423,7 +434,7 @@ class Gvp extends AdapterAbstract
      */
     protected function parseSaleResponse($rawResponse)
     {
-        // TODO: Implement parseSaleResponse() method.
+        return $this->parseResponse($rawResponse, new SaleResponse());
     }
 
     /**
@@ -432,7 +443,7 @@ class Gvp extends AdapterAbstract
      */
     protected function parseRefundResponse($rawResponse)
     {
-        // TODO: Implement parseRefundResponse() method.
+        return $this->parseResponse($rawResponse, new RefundResponse());
     }
 
     /**
@@ -441,6 +452,6 @@ class Gvp extends AdapterAbstract
      */
     protected function parseCancelResponse($rawResponse)
     {
-        // TODO: Implement parseCancelResponse() method.
+        return $this->parseResponse($rawResponse, new CancelResponse());
     }
 }
