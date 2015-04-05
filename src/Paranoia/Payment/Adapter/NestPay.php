@@ -2,7 +2,6 @@
 namespace Paranoia\Payment\Adapter;
 
 use Paranoia\Common\Serializer\Serializer;
-use Paranoia\Payment\PaymentEventArg;
 use Paranoia\Payment\Request\CancelRequest;
 use Paranoia\Payment\Request\PostAuthorizationRequest;
 use Paranoia\Payment\Request\PreAuthorizationRequest;
@@ -10,7 +9,6 @@ use Paranoia\Payment\Request\RefundRequest;
 use Paranoia\Payment\Request\RequestInterface;
 use Paranoia\Payment\Request\SaleRequest;
 use Paranoia\Payment\Response\CancelResponse;
-use Paranoia\Payment\Response\PaymentResponse;
 use Paranoia\Payment\Exception\UnexpectedResponse;
 use Paranoia\Payment\Response\PostAuthorizationResponse;
 use Paranoia\Payment\Response\PreAuthorizationResponse;

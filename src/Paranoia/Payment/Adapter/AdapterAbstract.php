@@ -291,7 +291,7 @@ abstract class AdapterAbstract
     {
         $rawRequest  = $this->buildRequest($request, 'buildPreauthorizationRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_PREAUTHORIZATION);
+        $response    = $this->parsePreAuthorizationResponse($rawResponse);
         return $response;
     }
 
@@ -304,7 +304,7 @@ abstract class AdapterAbstract
     {
         $rawRequest  = $this->buildRequest($request, 'buildPostAuthorizationRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_POSTAUTHORIZATION);
+        $response    = $this->parsePostAuthorizationResponse($rawResponse);
         return $response;
     }
 
@@ -317,7 +317,7 @@ abstract class AdapterAbstract
     {
         $rawRequest  = $this->buildRequest($request, 'buildSaleRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_SALE);
+        $response    = $this->parseSaleResponse($rawResponse);
         return $response;
     }
 
@@ -330,7 +330,7 @@ abstract class AdapterAbstract
     {
         $rawRequest  = $this->buildRequest($request, 'buildRefundRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_REFUND);
+        $response    = $this->parseRefundResponse($rawResponse);
         return $response;
     }
 
@@ -343,7 +343,7 @@ abstract class AdapterAbstract
     {
         $rawRequest  = $this->buildRequest($request, 'buildCancelRequest');
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
-        $response    = $this->parseResponse($rawResponse, self::TRANSACTION_TYPE_CANCEL);
+        $response    = $this->parseCancelResponse($rawResponse);
         return $response;
     }
 

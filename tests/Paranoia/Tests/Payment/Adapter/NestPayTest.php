@@ -21,7 +21,8 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $configuration->setMode('PROD')
             ->setClientId('700655000100')
             ->setUsername('ISBANKAPI')
-            ->setPassword('ISBANK07');
+            ->setPassword('ISBANK07')
+            ->setApiUrl('https://entegrasyon.asseco-see.com.tr/fim/api');
        return $configuration;
     }
 
