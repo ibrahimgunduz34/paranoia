@@ -1,5 +1,7 @@
 # NestPay
 
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Adaptörler > NestPay
+
 NestPay, Est firması tarafından geliştirilen NestPay sanal pos alt yapısını kullanan bankalar için geliştirilen adaptör sınıfıdır. NestPay sınıfını kullanarak ilgili bankalarda satış, iptal, iade, ön izin ve ön izin işleminin satışa dönüştürülmesi gibi işlemleri gerçekleştirebilirsiniz.
 
 **İsim Uzayı :**<br/>

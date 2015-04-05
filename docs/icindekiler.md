@@ -12,7 +12,7 @@
 		* [Posnet](/docs/Configuration/Posnet.md)
 	* **Adaptörler**
 		* [Gvp](/docs/Adapter/Gvp.md)
-		* NestPay
+		* [NestPay](/docs/Adapter/NestPay.md)
 		* Posnet
 	* **İstek Tipleri**
 		* [PreAuthorizationRequest](/docs/PreAuthorizationRequest.md)

@@ -1,5 +1,7 @@
 # Posnet
 
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Konfigürasyon Tipleri > Posnet
+
 Posnet adaptörünün banka ile iletişim kurması sırasında ihtiyaç duyduğu erişim bilgilerini taşıyan konfigürasyon sınıfıdır. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getClientId() / setClientId() gibi.)
 
 **İsim Uzayı :**<br/>

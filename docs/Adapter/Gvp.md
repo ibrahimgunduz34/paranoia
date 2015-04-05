@@ -1,4 +1,6 @@
-# GVP
+# Gvp
+
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Adaptörler > Gvp
 
 GVP, Garanti Bankası sanal pos alt yapısını kullanan bankalar için geliştirilen adaptör sınıfıdır. GVP sınıfını kullanarak ilgili bankalarda satış, iptal, iade, ön izin ve ön izin işleminin satışa dönüştürülmesi gibi işlemleri gerçekleştirebilirsiniz.
 
@@ -6,7 +8,7 @@ GVP, Garanti Bankası sanal pos alt yapısını kullanan bankalar için gelişti
 \Paranoia\Payment\Adapter
 
 **Sınıf Adı :**<br/>
-GVP
+Gvp
 
 **Dosya :**<br/>
 /src/Paranoia/Payment/Adapter/Gvp.php

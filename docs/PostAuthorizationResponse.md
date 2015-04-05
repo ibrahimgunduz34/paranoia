@@ -1,5 +1,7 @@
 # PostAuthorizationResponse
 
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Yanıt Tipleri > PostAuthorizationResponse
+
 PostAuthorizationResponse, ön izin işleminin satışa dönüştürülmesi işlemi sonucunda dönen cevaba ilişkin  parametreleri taşıyan yanıt nesnesidir. Aşağıdaki tabloda belirtilen **isSuccess** dışındaki tüm alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.) 
 
 **İsim Uzayı :**<br/>

@@ -1,5 +1,7 @@
 # SaleRequest
 
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > İstek Tipleri > SaleRequest
+
 SaleRequest, satış işlemi sırasında gönderilecek parametreleri taşıyan istek nesnesidir. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.)
 
 **İsim Uzayı :**<br/>
