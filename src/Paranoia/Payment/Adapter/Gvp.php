@@ -140,9 +140,9 @@ class Gvp extends AdapterAbstract
         $cardHolderPresentCode = 0,
         $originalRetrefNum = null
     ) {
-        $installment     = ($request->getInstallment()) ? $this->formatInstallment($request->getInstallment()) : null;
+        $installment     = $this->isInstallmentRequired($transactionType) ? $this->formatInstallment($request->getInstallment()) : null;
         $amount          = $this->isAmountRequired($transactionType) ? $this->formatAmount($request->getAmount()) : '1';
-        $currency        = ($request->getCurrency()) ? $this->formatCurrency($request->getCurrency()) : null;
+        $currency        = $this->isAmountRequired($transactionType) ? $this->formatCurrency($request->getCurrency()) : null;
         $type            = $this->getProviderTransactionType($transactionType);
         return array(
             'Type'                  => $type,
@@ -184,6 +184,17 @@ class Gvp extends AdapterAbstract
      * @return boolean
      */
     private function isCardNumberRequired($transactionType)
+    {
+        return in_array(
+            $transactionType,
+            array(
+                self::TRANSACTION_TYPE_SALE,
+                self::TRANSACTION_TYPE_PREAUTHORIZATION,
+            )
+        );
+    }
+
+    private function isInstallmentRequired($transactionType)
     {
         return in_array(
             $transactionType,
@@ -330,7 +341,7 @@ class Gvp extends AdapterAbstract
     {
         $requestData                = $this->buildBaseRequest($request, self::TRANSACTION_TYPE_CANCEL);
         $transactionId              = ($request->getTransactionId()) ? $request->getTransactionId() : null;
-        $transaction                = $this->buildTransaction($request, 0, $transactionId);
+        $transaction                = $this->buildTransaction($request, self::TRANSACTION_TYPE_CANCEL, 0, $transactionId);
         $requestData['Transaction'] = $transaction;
         return $requestData;
     }

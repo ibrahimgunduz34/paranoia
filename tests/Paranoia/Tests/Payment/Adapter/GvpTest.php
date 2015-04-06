@@ -32,14 +32,14 @@ class GvpTest extends \PHPUnit_Framework_TestCase
     private function createSaleRequest($orderId = null, $amount = 10, $installment = 1)
     {
         $request = new SaleRequest();
-        $request->setOrderId($orderId != null ? $orderId : time())
+        $request->setOrderId($orderId != null ? $orderId : time() . rand(10000, 99999))
             ->setInstallment($installment)
             ->setAmount($amount)
             ->setCurrency(AdapterAbstract::CURRENCY_TRY)
-            ->setCardNumber('4824894728063019')
-            ->setExpireMonth(6)
-            ->setExpireYear(17)
-            ->setSecurityCode(959);
+            ->setCardNumber('4282209027132016')
+            ->setExpireMonth(2)
+            ->setExpireYear(16)
+            ->setSecurityCode(599);
         return $request;
     }
 
@@ -52,10 +52,11 @@ class GvpTest extends \PHPUnit_Framework_TestCase
         return $request;
     }
 
-    private function createCancelRequest($transactionId = null)
+    private function createCancelRequest($orderId, $transactionId)
     {
         $request = new CancelRequest();
-        $request->setTransactionId($transactionId);
+        $request->setOrderId($orderId)
+            ->setTransactionId($transactionId);
         return $request;
     }
 
@@ -107,9 +108,10 @@ class GvpTest extends \PHPUnit_Framework_TestCase
         $saleResponse = $this->adapter->sale($saleRequest);
         $this->assertTrue($saleResponse->isSuccess());
 
+        $orderId = $saleRequest->getOrderId();
         $transactionId = $saleResponse->getTransactionId();
 
-        $cancelRequest = $this->createCancelRequest($transactionId);
+        $cancelRequest = $this->createCancelRequest($orderId, $transactionId);
 
         /** @var $cancelResponse \Paranoia\Payment\Response\CancelResponse */
         $cancelResponse = $this->adapter->cancel($cancelRequest);
@@ -164,9 +166,10 @@ class GvpTest extends \PHPUnit_Framework_TestCase
         $saleResponse = $this->adapter->sale($saleRequest);
         $this->assertTrue($saleResponse->isSuccess());
 
+        $orderId = $saleRequest->getOrderId();
         $transactionId = $saleResponse->getTransactionId();
 
-        $cancelRequest = $this->createCancelRequest($transactionId);
+        $cancelRequest = $this->createCancelRequest($orderId, $transactionId);
 
         /** @var $cancelResponse \Paranoia\Payment\Response\CancelResponse */
         $cancelResponse = $this->adapter->cancel($cancelRequest);

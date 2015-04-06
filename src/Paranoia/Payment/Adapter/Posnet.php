@@ -185,49 +185,54 @@ class Posnet extends AdapterAbstract
     }
 
     /**
+     * @param \SimpleXMLElement $xml
+     * @param ResponseAbstract $responseInstance
+     */
+    private function parseErrorMessage(\SimpleXMLElement $xml, ResponseAbstract $responseInstance)
+    {
+        $responseInstance->setCode((string)$xml->respCode);
+        $errorMessages = array();
+        if (property_exists($xml, 'respCode')) {
+            $errorMessages[] = sprintf('Error: %s', (string)$xml->respCode);
+        }
+        if (property_exists($xml, 'respText')) {
+            $errorMessages[] = sprintf('Error Message: %s ', (string)$xml->respText);
+        }
+        $errorMessage = implode(' ', $errorMessages);
+        $responseInstance->setMessage($errorMessage);
+    }
+
+    /**
      * {@inheritdoc}
      * @see Paranoia\Payment\Adapter\AdapterAbstract::parseResponse()
      */
-    protected function parseResponse($rawResponse, $transactionType)
+    private function parseResponse($rawResponse, ResponseAbstract $responseInstance)
     {
-        $response = new PaymentResponse();
         try {
-            /**
-             * @var object $xml
-             */
+            /** @var $xml \SimpleXMLElement */
             $xml = new \SimpleXmlElement($rawResponse);
         } catch ( \Exception $e ) {
-            $exception = new UnexpectedResponse('Provider returned unexpected response: ' . $rawResponse);
-            $eventArg = new PaymentEventArg(null, null, $transactionType, $exception);
-            $this->getDispatcher()->dispatch(self::EVENT_ON_EXCEPTION, $eventArg);
-            throw $exception;
+            throw new UnexpectedResponse('Provider returned unexpected response: ' . $rawResponse);
         }
-        $response->setIsSuccess((int)$xml->approved > 0);
-        if (!$response->isSuccess()) {
-            $response->setResponseCode((string)$xml->respCode);
-            $errorMessages = array();
-            if (property_exists($xml, 'respCode')) {
-                $errorMessages[] = sprintf('Error: %s', (string)$xml->respCode);
-            }
-            if (property_exists($xml, 'respText')) {
-                $errorMessages[] = sprintf('Error Message: %s ', (string)$xml->respText);
-            }
-            $errorMessage = implode(' ', $errorMessages);
-            $response->setResponseMessage($errorMessage);
+        $responseInstance->setIsSuccess((int)$xml->approved > 0);
+        if (!$responseInstance->isSuccess()) {
+            $this->parseErrorMessage($xml, $responseInstance);
         } else {
-            $response->setResponseCode("0000");
-            $response->setResponseMessage('Success');
-            if (property_exists($xml, 'orderId')) {
-                $response->setOrderId((string)$xml->orderId);
+
+            if(method_exists($responseInstance, 'setOrderId') && property_exists($xml, 'orderId')) {
+                $responseInstance->setOrderId((string) $xml->orderId);
             }
-            $response->setTransactionId((string)$xml->hostlogkey);
-            if (property_exists($xml, 'authCode')) {
-                $response->setOrderId((string)$xml->authCode);
+
+            if(method_exists($responseInstance, 'setTransactionId') &&
+                    property_exists($xml, 'hostlogkey') &&
+                    property_exists($xml, 'authCode')) {
+                $transactionId = sprintf('%s_%s', (string) $xml->hostlogkey, (string) (string)$xml->authCode);
+                $responseInstance->setTransactionId($transactionId);
             }
+
         }
-        $event = $response->isSuccess() ? self::EVENT_ON_TRANSACTION_SUCCESSFUL : self::EVENT_ON_TRANSACTION_FAILED;
-        $this->getDispatcher()->dispatch($event, new PaymentEventArg(null, $response, $transactionType));
-        return $response;
+
+        return $responseInstance;
     }
 
     /**
@@ -285,7 +290,7 @@ class Posnet extends AdapterAbstract
      */
     protected function parsePreAuthorizationResponse($rawResponse)
     {
-        // TODO: Implement parsePreAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse, new PreAuthorizationResponse());
     }
 
     /**
@@ -294,7 +299,7 @@ class Posnet extends AdapterAbstract
      */
     protected function parsePostAuthorizationResponse($rawResponse)
     {
-        // TODO: Implement parsePostAuthorizationResponse() method.
+        return $this->parseResponse($rawResponse, new PostAuthorizationResponse());
     }
 
     /**
@@ -303,7 +308,7 @@ class Posnet extends AdapterAbstract
      */
     protected function parseSaleResponse($rawResponse)
     {
-        // TODO: Implement parseSaleResponse() method.
+        return $this->parseResponse($rawResponse, new SaleResponse());
     }
 
     /**
@@ -312,7 +317,7 @@ class Posnet extends AdapterAbstract
      */
     protected function parseRefundResponse($rawResponse)
     {
-        // TODO: Implement parseRefundResponse() method.
+        return $this->parseResponse($rawResponse, new RefundResponse());
     }
 
     /**
@@ -321,6 +326,6 @@ class Posnet extends AdapterAbstract
      */
     protected function parseCancelResponse($rawResponse)
     {
-        // TODO: Implement parseCancelResponse() method.
+        return $this->parseResponse($rawResponse, new CancelResponse());
     }
 }
