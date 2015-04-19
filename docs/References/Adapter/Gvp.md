@@ -28,28 +28,28 @@ Gvp
 **sale()** metodu, satış işleminin gerçekleştirilmesi için kullanılır. 
 
 **Söz dizimi :** <br/>
-([SaleResponse](/docs/SaleResponse.md)) Gvp::sale([SaleRequest](/docs/SaleRequest.md) $request)
+([SaleResponse](/docs/References/ResponseTypes/SaleResponse.md)) Gvp::sale([SaleRequest](/docs/References/RequestTypes/SaleRequest.md) $request)
 
 ### cancel() :
 **cancel()** metodu, iptal işlemi için kullanılır.
 
 **Söz dizimi :**<br/>
-([CancelResponse](/docs/CancelResponse.md)) Gvp::cancel([CancelRequest](/docs/CancelRequest.md) $request)
+([CancelResponse](/docs/References/ResponseTypes/CancelResponse.md)) Gvp::cancel([CancelRequest](/docs/References/RequestTypes/CancelRequest.md) $request)
 
 ### refund() :
 **refund()** metodu, iade işlemi için kullanılır.
 
 **Söz dizimi :**<br/>
-([RefundResponse](/docs/RefundResponse.md)) Gvp::refund([RefundRequest](/docs/RefundRequest.md) $request)
+([RefundResponse](/docs/References/ResponseTypes/RefundResponse.md)) Gvp::refund([RefundRequest](/docs/References/RequestTypes/RefundRequest.md) $request)
 
 ### preAuthorization() :
 **preAuthorization()** metodu, ön izin işlemi için kullanılır.
 
 **Söz dizimi :**<br/>
-([PreAuthorizationResponse](/docs/PreAuthorizationResponse.md)) Gvp::preAuthorization([PreAuthorizationRequest](/docs/PreAuthorizationRequest.md) $request)
+([PreAuthorizationResponse](/docs/References/ResponseTypes/PreAuthorizationResponse.md)) Gvp::preAuthorization([PreAuthorizationRequest](/docs/References/RequestTypes/PreAuthorizationRequest.md) $request)
 
 ### postAuthorization() :
 **postAuthorization()** metodu, ön izin işleminin satışa dönüştürülmesi için kullanılır.
 
 **Söz dizimi :**<br/>
-([PostAuthorizationResponse](/docs/PostAuthorizationResponse.md)) Gvp::preAuthorization([PostAuthorizationRequest](/docs/PostAuthorizationRequest.md) $request)
+([PostAuthorizationResponse](/docs/References/ResponseTypes/PostAuthorizationResponse.md)) Gvp::preAuthorization([PostAuthorizationRequest](/docs/References/RequestTypes/PostAuthorizationRequest.md) $request)

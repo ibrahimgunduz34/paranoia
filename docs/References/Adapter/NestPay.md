@@ -28,28 +28,28 @@ NestPay
 **sale()** metodu, satış işleminin gerçekleştirilmesi için kullanılır. 
 
 **Söz dizimi :** <br/>
-([SaleResponse](/docs/SaleResponse.md)) NestPay::sale([SaleRequest](/docs/SaleRequest.md) $request)
+([SaleResponse](/docs/References/ResponseTypes/SaleResponse.md)) NestPay::sale([SaleRequest](/docs/References/RequestTypes/SaleRequest.md) $request)
 
 ### cancel() :
 **cancel()** metodu, iptal işlemi için kullanılır.
 
 **Söz dizimi :**<br/>
-([CancelResponse](/docs/CancelResponse.md)) NestPay::cancel([CancelRequest](/docs/CancelRequest.md) $request)
+([CancelResponse](/docs/References/ResponseTypes/CancelResponse.md)) NestPay::cancel([CancelRequest](/docs/References/RequestTypes/CancelRequest.md) $request)
 
 ### refund() :
 **refund()** metodu, iade işlemi için kullanılır.
 
 **Söz dizimi :**<br/>
-([RefundResponse](/docs/RefundResponse.md)) NestPay::refund([RefundRequest](/docs/RefundRequest.md) $request)
+([RefundResponse](/docs/References/ResponseTypes/RefundResponse.md)) NestPay::refund([RefundRequest](/docs/References/RequestTypes/RefundRequest.md) $request)
 
 ### preAuthorization() :
 **preAuthorization()** metodu, ön izin işlemi için kullanılır.
 
 **Söz dizimi :**<br/>
-([PreAuthorizationResponse](/docs/PreAuthorizationResponse.md)) NestPay::preAuthorization([PreAuthorizationRequest](/docs/PreAuthorizationRequest.md) $request)
+([PreAuthorizationResponse](/docs/References/ResponseTypes/PreAuthorizationResponse.md)) NestPay::preAuthorization([PreAuthorizationRequest](/docs/References/RequestTypes/PreAuthorizationRequest.md) $request)
 
 ### postAuthorization() :
 **postAuthorization()** metodu, ön izin işleminin satışa dönüştürülmesi için kullanılır.
 
 **Söz dizimi :**<br/>
-([PostAuthorizationResponse](/docs/PostAuthorizationResponse.md)) NestPay::preAuthorization([PostAuthorizationRequest](/docs/PostAuthorizationRequest.md) $request)
+([PostAuthorizationResponse](/docs/References/ResponseTypes/PostAuthorizationResponse.md)) NestPay::preAuthorization([PostAuthorizationRequest](/docs/References/RequestTypes/PostAuthorizationRequest.md) $request)
