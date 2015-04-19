@@ -76,7 +76,43 @@ $response = $adapter->sale($request);
 Aşağıdaki örnekde satış işleminin sonucu kontrol edilmektedir.
 
 ```php
-if($request->isSuccess()) {
+if($response->isSuccess()) {
+	echo "Ödeme işlemi başarılı";
+} else {
+	echo "Ödeme işlemi başarısız.";
+}
+```
+
+Son olarak tüm parçaları bir araya getirelim.
+```php
+use Paranoia\Configuration\NestPay as NestPayConfig;
+use Paranoia\Payment\Request\SaleRequest;
+use Paranoia\Payment\Adapter\AdapterAbstract;
+use Paranoia\Payment\Adapter\NestPay;
+
+$configuration = new NestPayConfig();
+$configuration->setMode('PROD')
+    ->setClientId('700655000100')
+    ->setUsername('ISBANKAPI')
+    ->setPassword('ISBANK07')
+    ->setApiUrl('https://entegrasyon.asseco-see.com.tr/fim/api');
+
+$request = new SaleRequest();
+$request->setOrderId('PRN1558769234')
+    ->setInstallment($installment)
+    ->setAmount($amount)
+    ->setCurrency(AdapterAbstract::CURRENCY_TRY)
+    ->setCardNumber('4508034508034509')
+    ->setExpireMonth(12)
+    ->setExpireYear(16)
+    ->setSecurityCode('000');    
+
+$adapter = new NestPay($configuration);
+
+/** @var $response \Paranoia\Payment\Response\SaleResponse */
+$response = $adapter->sale($request);    
+
+if($response->isSuccess()) {
 	echo "Ödeme işlemi başarılı";
 } else {
 	echo "Ödeme işlemi başarısız.";
