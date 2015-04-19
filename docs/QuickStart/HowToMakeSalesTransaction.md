@@ -7,7 +7,7 @@ Kullanıcının ödeme aracını (şu an için yalnızca kredi kartı) kullanara
 Satış işlemini gerçekleştirmek için aşağıdaki işlemleri sırasıyla gerçekleştirmelisiniz.
 
 * [Sanal Pos Konfigürasyonunun Oluşturulması](#sanal-pos-konfig%C3%BCrasyonunun-olu%C5%9Fturulmas%C4%B1)
-* Satış İsteğinin Oluşturulması
+* [Satış İsteğinin Oluşturulması](#sat%C4%B1%C5%9F-%C4%B0ste%C4%9Finin-olu%C5%9Fturulmas%C4%B1)
 * Satış İşleminin Uygun Sanal Pos Üzerinden Gerçekleştirilmesi
 
 ## Sanal Pos Konfigürasyonunun Oluşturulması
@@ -51,3 +51,4 @@ $request->setOrderId('PRN1558769234')
 ```
 
 Satış isteğinin alabileceği diğer parametreleri görebilmek için [bu dökümanı](/docs/References/RequestTypes/SaleRequest.md) inceleyebilirsiniz.
+
