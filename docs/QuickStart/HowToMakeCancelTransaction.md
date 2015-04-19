@@ -8,7 +8,7 @@ Belirtilen hareket numarasına ait satış işleminin iptal edilmesi.
 İptal işlemini gerçekleştirmek için aşağıdaki işlemleri sırasıyla gerçekleştirmelisiniz.
 
 * [Sanal Pos Konfigürasyonunun Oluşturulması](#sanal-pos-konfig%C3%BCrasyonunun-olu%C5%9Fturulmas%C4%B1)
-* [İptal İsteğinin Oluşturulması](#%C4%B0ptal-%C4%B0ste%C4%9Finin-Olu%C5%9Fturulmas%C4%B1)
+* [İptal İsteğinin Oluşturulması](#%C4%B0ptal-%C4%B0ste%C4%9Finin-olu%C5%9Fturulmas%C4%B1)
 * [İptal İşleminin Uygun Sanal Pos Üzerinden Gerçekleştirilmesi](#%C4%B0ptal-%C4%B0%C5%9Fleminin-Uygun-Sanal-Pos-%C3%9Czerinden-Ger%C3%A7ekle%C5%9Ftirilmesi)
 
 ## Sanal Pos Konfigürasyonunun Oluşturulması
