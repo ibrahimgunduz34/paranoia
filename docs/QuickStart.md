@@ -6,3 +6,4 @@
 * Ön Otorizasyon Nasıl Satışa Dönüştürülür ?
 * Puan Sorgulama İşlemi Nasıl Gerçekleştirilir ?
 * Satış İşlemi Müşterinin Puanlarını Kullandırılarak Nasıl Gerçekleştirilir ?
+* İşlem verileri nasıl log'a aktarılır ?
