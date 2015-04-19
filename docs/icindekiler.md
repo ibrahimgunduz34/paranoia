@@ -1,10 +1,12 @@
 # İçindekiler
-* **İşlemler**
-	* Satış
-	* İptal
-	* İade
-	* Ön İzin
-	* Ön İzin İşleminin Satışa Dönüştürülmesi / Onaylanması
+* **Hızlı Başlangıç**
+	* Satış İşlemi Nasıl Gerçekleştirilir ?
+	* İptal İşlemi Nasıl Gerçekleştirilir ?
+	* İade İşlemi Nasıl Gerçekleştirilir ?
+	* Ön Otorizasyon İşlemi Nasıl Gerçekleştirilir ?
+	* Ön Otorizasyon Nasıl Satışa Dönüştürülür ?
+	* Puan Sorgulama İşlemi Nasıl Gerçekleştirilir ?
+	* Satış İşlemi Müşterinin Puanlarını Kullandırılarak Nasıl Gerçekleştirilir ?
 * [**Referans Klavuzu**](/docs/References.md)
 	* [**Konfigürasyon Tipleri**](/docs/References/ConfigurationTypes.md)
 		* [Gvp](/docs/References/ConfigurationTypes/Gvp.md)
