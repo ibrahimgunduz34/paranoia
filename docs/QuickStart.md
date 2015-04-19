@@ -1,6 +1,8 @@
 # **Hızlı Başlangıç**
+[İçindekiler](/docs/icindekiler.md) > Hızlı Başlangıç
+
 * [Satış İşlemi Nasıl Gerçekleştirilir ?](/docs/QuickStart/HowToMakeSalesTransaction.md)
-* İptal İşlemi Nasıl Gerçekleştirilir ?
+* [İptal İşlemi Nasıl Gerçekleştirilir ?](/docs/QuickStart/HowToMakeCancelTransaction.md)
 * İade İşlemi Nasıl Gerçekleştirilir ?
 * Ön Otorizasyon İşlemi Nasıl Gerçekleştirilir ?
 * Ön Otorizasyon Nasıl Satışa Dönüştürülür ?
