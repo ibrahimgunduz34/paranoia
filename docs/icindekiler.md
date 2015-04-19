@@ -1,5 +1,5 @@
 # İçindekiler
-* **Hızlı Başlangıç**
+* [**Hızlı Başlangıç**](/docs/QuickStart.md)
 	* [Satış İşlemi Nasıl Gerçekleştirilir ?](/docs/QuickStart/HowToMakeSalesTransaction.md)
 	* İptal İşlemi Nasıl Gerçekleştirilir ?
 	* İade İşlemi Nasıl Gerçekleştirilir ?
