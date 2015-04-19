@@ -6,7 +6,7 @@ Kullanıcının ödeme aracını (şu an için yalnızca kredi kartı) kullanara
 ## Nasıl ?
 Satış işlemini gerçekleştirmek için aşağıdaki işlemleri sırasıyla gerçekleştirmelisiniz.
 
-* Sanal Pos Konfigürasyonunun Oluşturulması
+* [Sanal Pos Konfigürasyonunun Oluşturulması](#sanal-pos-konfig%C3%BCrasyonunun-olu%C5%9Fturulmas%C4%B1)
 * Satış İsteğinin Oluşturulması
 * Satış İşleminin Uygun Sanal Pos Üzerinden Gerçekleştirilmesi
 
