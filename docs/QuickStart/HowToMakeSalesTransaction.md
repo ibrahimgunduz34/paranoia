@@ -71,7 +71,7 @@ $response = $adapter->sale($request);
 
 ```
 
-İşlemin başarılı olup olmadığını tespit etmek için yanıt objesinin **isSuccess()** metodunu kullanabilirsiniz. Satış yanıtı objesi ile ilgili diğer özellikler için [bu dökümanı](/docs/References/ResponseTypes/SaleResponse.md) inceleyebilirsiniz. 
+İşlemin başarılı olup olmadığını tespit etmek için yanıt objesinin **isSuccess()** metodunu kullanabilirsiniz. Satış yanıtı ile ilgili diğer özellikler için [bu dökümanı](/docs/References/ResponseTypes/SaleResponse.md) inceleyebilirsiniz. 
 
 Aşağıdaki örnekde satış işleminin sonucu kontrol edilmektedir.
 
