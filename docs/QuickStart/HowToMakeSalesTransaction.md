@@ -1,4 +1,5 @@
 # Satış İşlemi Nasıl Gerçekleştirilir ?
+[İçindekiler](/docs/icindekiler.md) > [Hızlı Başlangıç](/docs/QuickStart.md) > Satış İşlemi Nasıl Gerçekleştirilir ?
 
 ## Amaç:
 Kullanıcının ödeme aracını (şu an için yalnızca kredi kartı) kullanarak kullanıcının kredi hesabından işletme hesabına para aktarma işlemini gerçekleştirmek.
