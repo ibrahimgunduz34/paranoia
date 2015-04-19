@@ -2,7 +2,6 @@
 namespace Paranoia\Payment\Adapter;
 
 use Paranoia\Common\Serializer\Serializer;
-use Paranoia\Payment\PaymentEventArg;
 use Paranoia\Payment\Request\CancelRequest;
 use Paranoia\Payment\Request\PostAuthorizationRequest;
 use Paranoia\Payment\Request\PreAuthorizationRequest;

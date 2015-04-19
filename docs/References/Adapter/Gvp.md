@@ -20,7 +20,7 @@ Gvp
 **__construct()** metodu, sınıfın kurucu metodudur. İlgili banka API sine ulaşabilmek için kullanılan erişim bilgileri ile donatılmış konfigürasyon sınıfını argüman olarak alır.
 
 **Söz dizimi :**<br/>
-(void) Gvp::__construct([\Paranoia\Configuration\Gvp](/docs/Configuration/Gvp.md) $configuration)
+(void) Gvp::__construct([\Paranoia\Configuration\Gvp](/docs/References/Configuration/Gvp.md) $configuration)
 
 
 ### sale() :

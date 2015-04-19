@@ -68,13 +68,13 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $saleResponse \Paranoia\Payment\Response\SaleResponse */
         $saleResponse = $this->adapter->sale($saleRequest);
-        $this->assertTrue($saleResponse->isSuccess());
+        $this->assertTrue($saleResponse->isSuccess(), $saleResponse->getMessage());
 
         $refundRequest = $this->createRefundRequest($orderId, $amount);
 
         /** @var $refundResponse \Paranoia\Payment\Response\RefundResponse */
         $refundResponse = $this->adapter->refund($refundRequest);
-        $this->assertTrue($refundResponse->isSuccess());
+        $this->assertTrue($refundResponse->isSuccess(), $refundResponse->getMessage());
     }
 
     public function testSaleAndPartialRefund()
@@ -85,19 +85,19 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $saleResponse \Paranoia\Payment\Response\SaleResponse */
         $saleResponse = $this->adapter->sale($saleRequest);
-        $this->assertTrue($saleResponse->isSuccess());
+        $this->assertTrue($saleResponse->isSuccess(), $saleResponse->getMessage());
 
         $refundRequest = $this->createRefundRequest($orderId, $amount / 2);
 
         /** @var $refundResponse \Paranoia\Payment\Response\RefundResponse */
         $refundResponse = $this->adapter->refund($refundRequest);
-        $this->assertTrue($refundResponse->isSuccess());
+        $this->assertTrue($refundResponse->isSuccess(), $refundResponse->getMessage());
 
         $refundRequest = $this->createRefundRequest($orderId, $amount / 2);
 
         /** @var $refundResponse \Paranoia\Payment\Response\RefundResponse */
         $refundResponse = $this->adapter->refund($refundRequest);
-        $this->assertTrue($refundResponse->isSuccess());
+        $this->assertTrue($refundResponse->isSuccess(), $refundResponse->getMessage());
     }
 
     public function testSaleAndCancel()
@@ -106,7 +106,7 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $saleResponse \Paranoia\Payment\Response\SaleResponse */
         $saleResponse = $this->adapter->sale($saleRequest);
-        $this->assertTrue($saleResponse->isSuccess());
+        $this->assertTrue($saleResponse->isSuccess(), $saleResponse->getMessage());
 
         $orderId = $saleRequest->getOrderId();
         $transactionId = $saleResponse->getTransactionId();
@@ -115,7 +115,7 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $cancelResponse \Paranoia\Payment\Response\CancelResponse */
         $cancelResponse = $this->adapter->cancel($cancelRequest);
-        $this->assertTrue($cancelResponse->isSuccess());
+        $this->assertTrue($cancelResponse->isSuccess(), $cancelResponse->getMessage());
     }
 
     public function testSaleWithInstallmentFullRefund()
@@ -126,13 +126,13 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $saleResponse \Paranoia\Payment\Response\SaleResponse */
         $saleResponse = $this->adapter->sale($saleRequest);
-        $this->assertTrue($saleResponse->isSuccess());
+        $this->assertTrue($saleResponse->isSuccess(), $saleResponse->getMessage());
 
         $refundRequest = $this->createRefundRequest($orderId, $amount);
 
         /** @var $refundResponse \Paranoia\Payment\Response\RefundResponse */
         $refundResponse = $this->adapter->refund($refundRequest);
-        $this->assertTrue($refundResponse->isSuccess());
+        $this->assertTrue($refundResponse->isSuccess(), $refundResponse->getMessage());
     }
 
     public function testSaleWithInstallmentAndPartialRefund()
@@ -143,19 +143,19 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $saleResponse \Paranoia\Payment\Response\SaleResponse */
         $saleResponse = $this->adapter->sale($saleRequest);
-        $this->assertTrue($saleResponse->isSuccess());
+        $this->assertTrue($saleResponse->isSuccess(), $saleResponse->getMessage());
 
         $refundRequest = $this->createRefundRequest($orderId, $amount / 2);
 
         /** @var $refundResponse \Paranoia\Payment\Response\RefundResponse */
         $refundResponse = $this->adapter->refund($refundRequest);
-        $this->assertTrue($refundResponse->isSuccess());
+        $this->assertTrue($refundResponse->isSuccess(), $refundResponse->getMessage());
 
         $refundRequest = $this->createRefundRequest($orderId, $amount / 2);
 
         /** @var $refundResponse \Paranoia\Payment\Response\RefundResponse */
         $refundResponse = $this->adapter->refund($refundRequest);
-        $this->assertTrue($refundResponse->isSuccess());
+        $this->assertTrue($refundResponse->isSuccess(), $refundResponse->getMessage());
     }
 
     public function testSaleWithInstallmentAndCancel()
@@ -164,7 +164,7 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $saleResponse \Paranoia\Payment\Response\SaleResponse */
         $saleResponse = $this->adapter->sale($saleRequest);
-        $this->assertTrue($saleResponse->isSuccess());
+        $this->assertTrue($saleResponse->isSuccess(), $saleResponse->getMessage());
 
         $orderId = $saleRequest->getOrderId();
         $transactionId = $saleResponse->getTransactionId();
@@ -173,7 +173,7 @@ class GvpTest extends \PHPUnit_Framework_TestCase
 
         /** @var $cancelResponse \Paranoia\Payment\Response\CancelResponse */
         $cancelResponse = $this->adapter->cancel($cancelRequest);
-        $this->assertTrue($cancelResponse->isSuccess());
+        $this->assertTrue($cancelResponse->isSuccess(), $cancelResponse->getMessage());
     }
 }
  

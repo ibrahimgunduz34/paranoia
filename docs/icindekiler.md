@@ -7,12 +7,12 @@
 	* Ön İzin İşleminin Satışa Dönüştürülmesi / Onaylanması
 * **Referans Klavuzu**
 	* **Konfigürasyon Tipleri**
-		* [Gvp](/docs/Configuration/Gvp.md)
-		* [NestPay](/docs/Configuration/NestPay.md)
-		* [Posnet](/docs/Configuration/Posnet.md)
+		* [Gvp](/docs/References/Configuration/Gvp.md)
+		* [NestPay](/docs/References/Configuration/NestPay.md)
+		* [Posnet](/docs/References/Configuration/Posnet.md)
 	* **Adaptörler**
-		* [Gvp](/docs/Adapter/Gvp.md)
-		* [NestPay](/docs/Adapter/NestPay.md)
+		* [Gvp](/docs/References/Adapter/Gvp.md)
+		* [NestPay](/docs/References/Adapter/NestPay.md)
 		* Posnet
 	* **İstek Tipleri**
 		* [PreAuthorizationRequest](/docs/PreAuthorizationRequest.md)

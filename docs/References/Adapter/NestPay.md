@@ -20,7 +20,7 @@ NestPay
 **__construct()** metodu, sınıfın kurucu metodudur. İlgili banka API sine ulaşabilmek için kullanılan erişim bilgileri ile donatılmış konfigürasyon sınıfını argüman olarak alır.
 
 **Söz dizimi :**<br/>
-(void) NestPay::__construct([\Paranoia\Configuration\NestPay](/docs/Configuration/NestPay.md) $configuration)
+(void) NestPay::__construct([\Paranoia\Configuration\NestPay](/docs/References/Configuration/NestPay.md) $configuration)
 
 
 ### sale() :

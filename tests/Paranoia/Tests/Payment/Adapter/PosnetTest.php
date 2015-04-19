@@ -1,15 +1,14 @@
 <?php
 namespace Paranoia\Tests\Payment\Adapter;
 
-use Paranoia\Configuration\NestPay as NestPayConfig;
-use Paranoia\Payment\Adapter\NestPay;
+use Paranoia\Configuration\Posnet as PosnetConfig;
+use Paranoia\Payment\Adapter\Posnet;
 use Paranoia\Payment\Request\CancelRequest;
 use Paranoia\Payment\Request\RefundRequest;
 use Paranoia\Payment\Adapter\AdapterAbstract;
 use Paranoia\Payment\Request\SaleRequest;
 
-class NestPayTest extends \PHPUnit_Framework_TestCase
-{
+class PosnetTest extends \PHPUnit_Framework_TestCase {
     /**
      * @var \Paranoia\Payment\Adapter\AdapterAbstract
      */
@@ -17,18 +16,16 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
 
     protected function getConfiguration()
     {
-        $configuration = new NestPayConfig();
-        $configuration->setMode('PROD')
-            ->setClientId('700655000100')
-            ->setUsername('ISBANKAPI')
-            ->setPassword('ISBANK07')
-            ->setApiUrl('https://entegrasyon.asseco-see.com.tr/fim/api');
-       return $configuration;
+        $configuration = new PosnetConfig();
+        $configuration->setMerchantId('6797752273')
+            ->setTerminalId('67006667')
+            ->setApiUrl('http://setmpos.ykb.com/PosnetWebService/XML');
+        return $configuration;
     }
 
     protected function setUp()
     {
-        $this->adapter = new NestPay($this->getConfiguration());
+        $this->adapter = new Posnet($this->getConfiguration());
     }
 
     private function createSaleRequest($orderId = null, $amount = 10, $installment = 1)
@@ -38,9 +35,9 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
             ->setInstallment($installment)
             ->setAmount($amount)
             ->setCurrency(AdapterAbstract::CURRENCY_TRY)
-            ->setCardNumber('4508034508034509')
-            ->setExpireMonth(12)
-            ->setExpireYear(16)
+            ->setCardNumber('4506347043358536')
+            ->setExpireMonth(8)
+            ->setExpireYear(19)
             ->setSecurityCode('000');
         return $request;
     }
@@ -178,3 +175,4 @@ class NestPayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($cancelResponse->isSuccess(), $cancelResponse->getMessage());
     }
 }
+ 

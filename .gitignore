@@ -1,5 +1,4 @@
 .idea
-.build
-config.php
+build
 vendor
 composer.lock
