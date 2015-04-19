@@ -1,6 +1,6 @@
 # Gvp
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [Konfigürasyon Tipleri](/docs/References/ConfigurationTypes.md) > Gvp
+[İçindekiler](/docs/icindekiler.md) > [Referans Klavuzu](/docs/References.md) > [Konfigürasyon Tipleri](/docs/References/ConfigurationTypes.md) > Gvp
 
 Gvp adaptörünün banka ile iletişim kurması sırasında ihtiyaç duyduğu erişim bilgilerini taşıyan konfigürasyon sınıfıdır. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getClientId() / setClientId() gibi.)
 
