@@ -12,7 +12,7 @@ Satış işlemini gerçekleştirmek için aşağıdaki işlemleri sırasıyla ge
 
 ## Sanal Pos Konfigürasyonunun Oluşturulması
 
-Seçtiğiniz sanal pos adaptörünün (Bkz. [Adaptörler](/docs/References/Adaptors.md)) ödeme sistemi servisiyle iletişim kurabilmesi için kendisine uygun bir konfigürasyon objesi oluşturmalısınız. (Bkz. Konfigürasyon Tipleri)
+Seçtiğiniz sanal pos adaptörünün (Bkz. [Adaptörler](/docs/References/Adapters.md)) ödeme sistemi servisiyle iletişim kurabilmesi için kendisine uygun bir konfigürasyon objesi oluşturmalısınız. (Bkz. Konfigürasyon Tipleri)
 
 Dökümandaki örnekler *NestPay* ile gerçekleştirileceği için konfigürasyon tipini \Paranoia\Configuration\NestPay olarak seçiyoruz.
 
