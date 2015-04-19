@@ -7,7 +7,7 @@
 	* Ön Otorizasyon Nasıl Satışa Dönüştürülür ?
 	* Puan Sorgulama İşlemi Nasıl Gerçekleştirilir ?
 	* Satış İşlemi Müşterinin Puanlarını Kullandırılarak Nasıl Gerçekleştirilir ?
-	* İşlem verileri nasıl sistem günlüğüne aktarılır ?
+	* İşlem verileri günlüğe nasıl aktarılır ?
 * [**Referans Klavuzu**](/docs/References.md)
 	* [**Konfigürasyon Tipleri**](/docs/References/ConfigurationTypes.md)
 		* [Gvp](/docs/References/ConfigurationTypes/Gvp.md)
