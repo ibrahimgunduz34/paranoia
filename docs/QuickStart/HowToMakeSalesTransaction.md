@@ -37,7 +37,7 @@ Her konfigürasyon tipi ödeme sistemi tipine özel olarak farklı argümanlar i
 Satış işlemi ile ilgili sipariş numarası, tutar, ödeme aracına ait bilgiler gibi verilerin ödeme sistemi servisine iletilebilmesi için sipariş isteği oluşturulması gerekmektedir. Aşağıda örnek sipariş isteği görülüyor.
 
 ```php
-use Paranoia\Request\SalesRequest;
+use Paranoia\Payment\Request\SaleRequest;
 use Paranoia\Payment\Adapter\AdapterAbstract;
 
 $request = new SaleRequest();
@@ -53,3 +53,22 @@ $request->setOrderId('PRN1558769234')
 
 Satış isteğinin alabileceği diğer parametreleri görebilmek için [bu dökümanı](/docs/References/RequestTypes/SaleRequest.md) inceleyebilirsiniz.
 
+## Satış İşleminin Uygun Sanal Pos Üzerinden Gerçekleştirilmesi
+
+Satış isteğini ödeme sistemi servisine iletmek için [bu dökümanda](/docs/References/Adapters.md) tanımlanan adaptörlerden birini seçerek sale() metodunu kullanmalısınız.
+
+Örnekte belirtilen **$configuration** değişkeni, [Sanal Pos Konfigürasyonunun Oluşturulması](#sanal-pos-konfig%C3%BCrasyonunun-olu%C5%9Fturulmas%C4%B1) adımında oluşturulan NestPay tipindeki konfigürasyon nesnesini içermektedir.
+
+**$request** değişkeni, [Satış İsteğinin Oluşturulması](#sat%C4%B1%C5%9F-%C4%B0ste%C4%9Finin-olu%C5%9Fturulmas%C4%B1) adımında oluşturulan satış isteği objesini içermektedir.
+
+```php
+use Paranoia\Payment\Adapter\NestPay;
+
+$adapter = new NestPay($configuration);
+
+/** @var $response \Paranoia\Payment\Response\SaleResponse */
+$response = $adapter->sale($request);
+
+```
+
+İşlemin başarılı olup olmadığını tespit etmek için yanıt objesinin **isSuccess()** metodunu kullanabilirsiniz. Satış yanıtı objesi ile ilgili diğer özellikler için [bu dökümanı](/docs/References/ResponseTypes/SaleResponse.md) inceleyebilirsiniz.
