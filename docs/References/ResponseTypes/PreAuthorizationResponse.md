@@ -1,6 +1,6 @@
 # PreAuthorizationResponse
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Yanıt Tipleri > PreAuthorizationResponse
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [Yanıt Tipleri](/docs/References/ResponseTypes.md) > PreAuthorizationResponse
 
 PreAuthorizationResponse, ön izin işlemi sonucunda dönen cevaba ilişkin  parametreleri taşıyan yanıt nesnesidir. Aşağıdaki tabloda belirtilen **isSuccess** dışındaki tüm alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.) 
 

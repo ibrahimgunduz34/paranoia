@@ -1,6 +1,6 @@
 # NestPay
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Adaptörler > NestPay
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [Adaptörler](/docs/References/Adapters.md) > NestPay
 
 NestPay, Est firması tarafından geliştirilen NestPay sanal pos alt yapısını kullanan bankalar için geliştirilen adaptör sınıfıdır. NestPay sınıfını kullanarak ilgili bankalarda satış, iptal, iade, ön izin ve ön izin işleminin satışa dönüştürülmesi gibi işlemleri gerçekleştirebilirsiniz.
 
@@ -20,7 +20,7 @@ NestPay
 **__construct()** metodu, sınıfın kurucu metodudur. İlgili banka API sine ulaşabilmek için kullanılan erişim bilgileri ile donatılmış konfigürasyon sınıfını argüman olarak alır.
 
 **Söz dizimi :**<br/>
-(void) NestPay::__construct([\Paranoia\Configuration\NestPay](/docs/References/Configuration/NestPay.md) $configuration)
+(void) NestPay::__construct([\Paranoia\Configuration\NestPay](/docs/References/ConfigurationTypes/NestPay.md) $configuration)
 
 
 ### sale() :

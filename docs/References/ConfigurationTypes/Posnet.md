@@ -1,6 +1,6 @@
 # Posnet
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Konfigürasyon Tipleri > Posnet
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [Konfigürasyon Tipleri](/docs/References/ConfigurationTypes.md) > Posnet
 
 Posnet adaptörünün banka ile iletişim kurması sırasında ihtiyaç duyduğu erişim bilgilerini taşıyan konfigürasyon sınıfıdır. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getClientId() / setClientId() gibi.)
 

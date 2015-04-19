@@ -1,6 +1,6 @@
 # SaleResponse
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Yanıt Tipleri > SaleResponse
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [Yanıt Tipleri](/docs/References/ResponseTypes.md) > SaleResponse
 
 SaleResponse, satış işlemi sonucunda dönen cevaba ilişkin  parametreleri taşıyan yanıt nesnesidir. Aşağıdaki tabloda belirtilen **isSuccess** dışındaki tüm alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.) 
 

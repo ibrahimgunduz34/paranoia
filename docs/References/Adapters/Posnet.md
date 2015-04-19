@@ -1,6 +1,6 @@
 # Posnet
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > Adaptörler > Posnet
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [Adaptörler](/docs/References/Adapters.md) > Posnet
 
 Posnet, YapıKredi Bankası sanal pos alt yapısını kullanan bankalar için geliştirilen adaptör sınıfıdır. Posnet sınıfını kullanarak ilgili bankalarda satış, iptal, iade, ön izin ve ön izin işleminin satışa dönüştürülmesi gibi işlemleri gerçekleştirebilirsiniz.
 
@@ -20,7 +20,7 @@ Posnet
 **__construct()** metodu, sınıfın kurucu metodudur. İlgili banka API sine ulaşabilmek için kullanılan erişim bilgileri ile donatılmış konfigürasyon sınıfını argüman olarak alır.
 
 **Söz dizimi :**<br/>
-(void) Posnet::__construct([\Paranoia\Configuration\Posnet](/docs/References/Configuration/Posnet.md) $configuration)
+(void) Posnet::__construct([\Paranoia\Configuration\Posnet](/docs/References/ConfigurationTypes/Posnet.md) $configuration)
 
 
 ### sale() :

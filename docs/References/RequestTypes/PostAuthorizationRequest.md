@@ -1,6 +1,6 @@
 # PostAuthorizationRequest
 
-[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > İstek Tipleri > PostAuthorizationRequest
+[İçindekiler](/docs/icindekiler.md) > Referans Klavuzu > [İstek Tipleri](/docs/References/RequestTypes.md) > PostAuthorizationRequest
 
 PostAuthorizationRequest, ön izin işleminin satışa dönüştürülmesi işlemi sırasında gönderilecek parametreleri taşıyan istek nesnesidir. Aşağıdaki tabloda belirtilen alanlara getter/setter metodları vasıtasıyla ulaşılabilir. (Örn: getOrderId() / setOrderId() gibi.)
 
