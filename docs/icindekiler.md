@@ -13,7 +13,7 @@
 	* **Adaptörler**
 		* [Gvp](/docs/References/Adapter/Gvp.md)
 		* [NestPay](/docs/References/Adapter/NestPay.md)
-		* Posnet
+		* [Posnet](/docs/References/Adapter/Posnet.md)
 	* **İstek Tipleri**
 		* [PreAuthorizationRequest](/docs/PreAuthorizationRequest.md)
 		* [PostAuthorizationRequest](/docs/PostAuthorizationRequest.md)
