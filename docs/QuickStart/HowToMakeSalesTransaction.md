@@ -12,7 +12,7 @@ Satış işlemini gerçekleştirmek için aşağıdaki işlemleri sırasıyla ge
 
 ## Sanal Pos Konfigürasyonunun Oluşturulması
 
-Seçtiğiniz sanal pos adaptörünün (Bkz. Adaptörler) ödeme sistemi servisiyle iletişim kurabilmesi için kendisine uygun bir konfigürasyon objesi oluşturmalısınız. (Bkz. Konfigürasyon Tipleri)
+Seçtiğiniz sanal pos adaptörünün (Bkz. [Adaptörler](/docs/References/Adaptors.md)) ödeme sistemi servisiyle iletişim kurabilmesi için kendisine uygun bir konfigürasyon objesi oluşturmalısınız. (Bkz. Konfigürasyon Tipleri)
 
 Dökümandaki örnekler *NestPay* ile gerçekleştirileceği için konfigürasyon tipini \Paranoia\Configuration\NestPay olarak seçiyoruz.
 
@@ -29,3 +29,25 @@ $configuration->setMode('PROD')
 ```
 
 Her konfigürasyon tipi ödeme sistemi tipine özel olarak farklı argümanlar içermektedir. Seçtiğiniz ödeme sistemi adaptörü ile ilgili konfigürasyon tipleri için [Konfigürasyon Tipleri](/docs/References/ConfigurationTypes.md) dökümanını inceleyebilirsiniz.
+
+
+## Satış İsteğinin Oluşturulması
+
+Satış işlemi ile ilgili sipariş numarası, tutar, ödeme aracına ait bilgiler gibi verilerin ödeme sistemi servisine iletilebilmesi için sipariş isteği oluşturulması gerekmektedir. Aşağıda örnek sipariş isteği görülüyor.
+
+```php
+use Paranoia\Request\SalesRequest;
+use Paranoia\Payment\Adapter\AdapterAbstract;
+
+$request = new SaleRequest();
+$request->setOrderId('PRN1558769234')
+    ->setInstallment($installment)
+    ->setAmount($amount)
+    ->setCurrency(AdapterAbstract::CURRENCY_TRY)
+    ->setCardNumber('4508034508034509')
+    ->setExpireMonth(12)
+    ->setExpireYear(16)
+    ->setSecurityCode('000');
+```
+
+Satış isteğinin alabileceği diğer parametreleri görebilmek için [bu dökümanı](/docs/References/RequestTypes/SaleRequest.md) inceleyebilirsiniz.
