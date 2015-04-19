@@ -34,7 +34,7 @@ Her konfigürasyon tipi ödeme sistemi tipine özel olarak farklı argümanlar i
 
 ## İptal İsteğinin Oluşturulması
 
-Satış işlemi ile ilgili sipariş numarası, tutar, ödeme aracına ait bilgiler gibi verilerin ödeme sistemi servisine iletilebilmesi için sipariş isteği oluşturulması gerekmektedir. Aşağıda örnek sipariş isteği görülüyor.
+İptal edilecek satış işlemi ile ilgili sipariş numarası ve hareket numarası gibi verilerin ödeme sistemi servisine iletilebilmesi için iptal isteği oluşturulması gerekmektedir. Aşağıda örnek sipariş isteği görülüyor.
 
 ```php
 use Paranoia\Payment\Request\SaleRequest;
