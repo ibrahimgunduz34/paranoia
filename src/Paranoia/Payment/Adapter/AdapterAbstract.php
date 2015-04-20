@@ -10,11 +10,14 @@ use Paranoia\Payment\Request\PreAuthorizationRequest;
 use Paranoia\Payment\Request\RefundRequest;
 use Paranoia\Payment\Request\RequestInterface;
 use Paranoia\Payment\Request\SaleRequest;
+use Paranoia\Payment\Request\ThreeDSecureAuthRequest;
 use Paranoia\Payment\Response;
 use Paranoia\Payment\Exception\UnknownTransactionType;
 use Paranoia\Payment\Exception\UnknownCurrencyCode;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Guzzle\Http\Exception\RequestException;
+
+use \DOMDocument;
 
 abstract class AdapterAbstract
 {
@@ -137,6 +140,18 @@ abstract class AdapterAbstract
     abstract protected function buildRequest(RequestInterface $request, $requestBuilder);
 
     /**
+     * @param ThreeDSecureAuthRequest $request
+     * @return array
+     */
+    abstract public function buildThreeDSecureRequest(ThreeDSecureAuthRequest $request);
+
+    /**
+     * @param ThreeDSecureFinalizeRequest $request
+     * @return mixed
+     */
+    abstract public function buildThreeDSecureFinalizeRequest(ThreeDSecureFinalizeRequest $request);
+
+    /**
      * @param mixed $rawResponse
      * @return \Paranoia\Payment\Response\PreAuthorizationResponse
      */
@@ -166,6 +181,12 @@ abstract class AdapterAbstract
      */
     abstract protected function parseCancelResponse($rawResponse);
 
+    /**
+     * @param $rawResponse
+     * @return \Paranoia\Payment\Response\ThreeDSecureFinalizeResponse
+     */
+    abstract protected function parseThreeDSecureFinalizeResponse($rawResponse);
+
 
     /**
      * Makes http request to remote host.
@@ -192,7 +213,25 @@ abstract class AdapterAbstract
         } catch (RequestException $e) {
             throw new CommunicationError('Communication failed: ' . $url);
         }
+    }
 
+    protected function renderHtmlForm($url, $data)
+    {
+        $doc = new DOMDocument();
+        $form = $doc->appendChild($doc->createElement('form'));
+        $form->setAttribute('method', 'POST');
+        $form->setAttribute('action', $url);
+        $form->setAttribute('id', 'ThreeDSecureAuthForm');
+        foreach($data as $attribute => $value) {
+            $input = $form->appendChild($doc->createElement('input'));
+            $input->setAttribute('type', 'hidden');
+            $input->setAttribute('name', $attribute);
+            $input->setAttribute('value', $value);
+        }
+        $script = $doc->appendChild($doc->createElement('script'));
+        $script->setAttribute('type', 'text/javascript');
+        $script->appendChild($doc->createTextNode('document.getElementById("ThreeDSecureAuthForm").submit(); '));
+        return $doc->saveHTML();
     }
 
     /**
@@ -345,6 +384,12 @@ abstract class AdapterAbstract
         $rawResponse = $this->sendRequest($this->configuration->getApiUrl(), $rawRequest);
         $response    = $this->parseCancelResponse($rawResponse);
         return $response;
+    }
+
+    public function threeDSecureAuth(ThreeDSecureAuthRequest $request)
+    {
+        $rawRequest = $this->buildThreeDSecureRequest($request);
+        return $this->renderHtmlForm($this->configuration->getThreeDSecureAuthUrl(), $rawRequest);
     }
 
     /**

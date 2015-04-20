@@ -9,6 +9,24 @@ class AbstractConfiguration
      */
     private $apiUrl;
 
+    private $threeDSecureAuthUrl;
+
+    /**
+     * @param mixed $threeDSecureAuthUrl
+     */
+    public function setThreeDSecureAuthUrl($threeDSecureAuthUrl)
+    {
+        $this->threeDSecureAuthUrl = $threeDSecureAuthUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThreeDSecureAuthUrl()
+    {
+        return $this->threeDSecureAuthUrl;
+    }
+
     /**
      * @param string $apiUrl
      *
@@ -27,4 +45,6 @@ class AbstractConfiguration
     {
         return $this->apiUrl;
     }
+
+
 }
