@@ -143,7 +143,7 @@ abstract class AdapterAbstract
      * @param ThreeDSecureAuthRequest $request
      * @return array
      */
-    abstract public function buildThreeDSecureRequest(ThreeDSecureAuthRequest $request);
+    abstract public function buildThreeDSecureAuthRequest(ThreeDSecureAuthRequest $request);
 
     /**
      * @param ThreeDSecureFinalizeRequest $request
@@ -388,7 +388,7 @@ abstract class AdapterAbstract
 
     public function threeDSecureAuth(ThreeDSecureAuthRequest $request)
     {
-        $rawRequest = $this->buildThreeDSecureRequest($request);
+        $rawRequest = $this->buildThreeDSecureAuthRequest($request);
         return $this->renderHtmlForm($this->configuration->getThreeDSecureAuthUrl(), $rawRequest);
     }
 
