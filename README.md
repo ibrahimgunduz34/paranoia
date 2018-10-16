@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/paranoiaproject/paranoia.svg?branch=master)](https://travis-ci.org/paranoiaproject/paranoia)
 
-# Paranoia Nedir ?
-Paranoia, Türkiye genelinde sanal pos servisi veren banka ve ödeme servisi sağlayıcıların apilerini ortak bir arayüz üzerinden basitce kullanılabilmesini sağlayarak geliştirme maliyetlerini aşağıya çekmeyi hedefleyen açık kaynaklı bir PHP kütüphanesidir.
+# What's Paranoia
+Paranoia is an open source PHP project which makes integration easy to all payment apis used by banks.
 
-# Neler Yapılabilir ?
-Paranoia, senkron çalışan kartlı ödeme sistemleri üzerinden peşin ve taksitli olmak üzere ön satış onayı (pre authorization), satışa dönüştürme (post authorization), satış (sale), iade (refund) ve iptal (cancel) işlemlerini gerçekleştirebilmektedir.
+# What it can do 
+You can perform sales, pre-authorization, refund and canel transactions through paranoia on bank API's as synchronous.
 
-# Nasıl Kullanılır ?
-Paranoia kütüphanesinin kurulum ve kullanımı ile ilgili olarak [dökümanlar](/docs/icindekiler.md)ı inceleyebilirsiniz.
+# How it use ?
+You can find the guide in [documents](/docs/index.md) section.
