@@ -1,13 +1,13 @@
 <?php
 namespace Paranoia\Test\Builder\Gvp;
 
-use Paranoia\Builder\Gvp\CancelRequestBuilder;
-use Paranoia\Configuration\Gvp as GvpConfiguration;
-use Paranoia\Formatter\Gvp\ExpireDateFormatter;
-use Paranoia\Formatter\IsoNumericCurrencyCodeFormatter;
-use Paranoia\Formatter\MoneyFormatter;
-use Paranoia\Formatter\SingleDigitInstallmentFormatter;
-use Paranoia\Request\Request;
+use Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter;
+use Paranoia\Core\Formatter\MoneyFormatter;
+use Paranoia\Core\Formatter\SingleDigitInstallmentFormatter;
+use Paranoia\Core\Request\Request;
+use Paranoia\Gvp\Builder\CancelRequestBuilder;
+use Paranoia\Gvp\Configuration\Gvp as GvpConfiguration;
+use Paranoia\Gvp\Formatter\ExpireDateFormatter;
 use PHPUnit\Framework\TestCase;
 
 class CancelRequestBuilderTest extends TestCase

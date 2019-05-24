@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\NestPay;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\NestPay\PreAuthorizationResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Nestpay\Processor\PreAuthorizationResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class PreAuthorizationResponseProcessorTest extends TestCase
@@ -15,7 +15,7 @@ class PreAuthorizationResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/nestpay/pre_authorization_successful.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new PreAuthorizationResponseProcessor($configuration);
         $response = $processor->process($rawResponse);

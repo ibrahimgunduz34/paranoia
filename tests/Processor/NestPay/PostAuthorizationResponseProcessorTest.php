@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\NestPay;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\NestPay\PostAuthorizationResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Nestpay\Processor\PostAuthorizationResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class PostAuthorizationResponseProcessorTest extends TestCase
@@ -15,9 +15,9 @@ class PostAuthorizationResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/nestpay/post_authorization_successful.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new PostAuthorizationResponseProcessor($configuration);
+        $processor = new \Paranoia\Nestpay\Processor\PostAuthorizationResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(true, $response->isSuccess());
@@ -32,7 +32,7 @@ class PostAuthorizationResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/nestpay/post_authorization_failed.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new PostAuthorizationResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
@@ -50,7 +50,7 @@ class PostAuthorizationResponseProcessorTest extends TestCase
      */
     public function test_bad_response($rawResponse)
     {
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new PostAuthorizationResponseProcessor($configuration);
 

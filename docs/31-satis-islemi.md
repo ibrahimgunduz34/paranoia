@@ -12,7 +12,7 @@ Satış isteği, **\Paranoia\Request\Request**  tipinde bir nesnenin sipariş ve
 $request = new \Paranoia\Request\Request();
 $request->setOrderId('ORDER000000' . time())
         ->setAmount(100.35)
-        ->setCurrency(\Paranoia\Currency::CODE_TRY);
+        ->setCurrency(\Paranoia\Core\Currency::CODE_TRY);
 $card = new \Paranoia\Request\Resource\Card();
 $card->setNumber('5406******675403')
      ->setSecurityCode('000')
@@ -40,7 +40,7 @@ $request->setResource($card);
 $request = new \Paranoia\Request\Request();
 $request->setOrderId('ORDER000000' . time())
         ->setAmount(100.35)
-        ->setCurrency(\Paranoia\Currency::CODE_TRY);
+        ->setCurrency(\Paranoia\Core\Currency::CODE_TRY);
 $card = new \Paranoia\Request\Resource\Card();
 $card->setNumber('5406******675403')
      ->setSecurityCode('000')
@@ -51,7 +51,7 @@ $request->setResource($card);
 
 * Sağlayıcı API'sine bağlantı kurmak için gerekli konfigürasyon bilgilerini dolduruyoruz. Konfigürasyon parametreleri, ödeme sistemi sağlayıcısına göre değişkenlik göstermektedir. Ödeme sağlayıcılarına göre gerekli konfigürasyon tanımlamaları hakkında daha fazla bilgi edinmek için [bu bölümü]() inceleyiniz.
 ```php
-$configuration = new \Paranoia\Configuration\NestPay();
+$configuration = new \Paranoia\Nestpay\Configuration\NestPay();
 $configuration->setClientId('123456789')
         ->setUsername('API_USERNAME')
         ->setPassword('API_PASSWORD')
@@ -62,7 +62,7 @@ $configuration->setClientId('123456789')
 * Satış işlemini gerçekleştiriyoruz. Sağlayıcı uyarlamaları, Sağlayıcının [2. Desteklenen Ödeme Sistemleri](/docs/2-desteklenen-odeme-sistemleri.md) dökümanında belirtilen **ödeme sistemi** nin adı ile adlandırılmışlardır. Örnekte belirtilen NestPay uyarlaması için \Paranoia\Pos\\**NestPay** sınıfını kullanabildiğiniz gibi Posnet uyarlaması için \Paranoia\Pos\\**Posnet** sınıfını kullanabilirsiniz.
 ```php
 try {
-        $adapter = new \Paranoia\Pos\NestPay($configuration);
+        $adapter = new \Paranoia\Nestpay\NestPay($configuration);
         $response = $adapter->sale($request);
 } catch(\Paranoia\Exception\CommunicationError $e) {
          // Bağlantı hatası durumunda yapılacak işlemleri

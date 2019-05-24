@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\NestPay;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\NestPay\CancelResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Nestpay\Processor\CancelResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class CancelResponseProcessorTest extends TestCase
@@ -34,7 +34,7 @@ class CancelResponseProcessorTest extends TestCase
 
         /** @var AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new CancelResponseProcessor($configuration);
+        $processor = new \Paranoia\Nestpay\Processor\CancelResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(false, $response->isSuccess());
@@ -50,7 +50,7 @@ class CancelResponseProcessorTest extends TestCase
      */
     public function test_bad_response($rawResponse)
     {
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new CancelResponseProcessor($configuration);
 

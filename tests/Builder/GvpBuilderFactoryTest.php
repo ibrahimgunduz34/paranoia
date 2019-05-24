@@ -1,15 +1,15 @@
 <?php
 namespace Paranoia\Test\Builder;
 
-use Paranoia\Builder\Gvp\CancelRequestBuilder;
-use Paranoia\Builder\Gvp\PostAuthorizationRequestBuilder;
-use Paranoia\Builder\Gvp\PreAuthorizationRequestBuilder;
-use Paranoia\Builder\Gvp\RefundRequestBuilder;
-use Paranoia\Builder\Gvp\SaleRequestBuilder;
-use Paranoia\Builder\GvpBuilderFactory;
-use Paranoia\Configuration\Gvp as GvpConfiguration;
-use Paranoia\Exception\NotImplementedError;
-use Paranoia\TransactionType;
+use Paranoia\Core\Exception\NotImplementedError;
+use Paranoia\Core\TransactionType;
+use Paranoia\Gvp\Builder\CancelRequestBuilder;
+use Paranoia\Gvp\Builder\PostAuthorizationRequestBuilder;
+use Paranoia\Gvp\Builder\PreAuthorizationRequestBuilder;
+use Paranoia\Gvp\Builder\RefundRequestBuilder;
+use Paranoia\Gvp\Builder\SaleRequestBuilder;
+use Paranoia\Gvp\Configuration\Gvp as GvpConfiguration;
+use Paranoia\Gvp\GvpBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 class GvpBuilderFactoryTest extends TestCase

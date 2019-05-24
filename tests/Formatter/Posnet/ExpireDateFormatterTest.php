@@ -1,7 +1,7 @@
 <?php
 namespace Paranoia\Test\Formatter\Posnet;
 
-use Paranoia\Formatter\Posnet\ExpireDateFormatter;
+use Paranoia\Posnet\Formatter\ExpireDateFormatter;
 use PHPUnit\Framework\TestCase;
 
 class ExpireDateFormatterTest extends TestCase

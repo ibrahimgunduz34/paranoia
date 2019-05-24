@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\NestPay;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\NestPay\RefundResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Nestpay\Processor\RefundResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class RefundResponseProcessorTest extends TestCase
@@ -15,7 +15,7 @@ class RefundResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/nestpay/refund_successful.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new RefundResponseProcessor($configuration);
         $response = $processor->process($rawResponse);

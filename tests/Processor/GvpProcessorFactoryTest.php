@@ -1,15 +1,14 @@
 <?php
 namespace Paranoia\Test\Processor;
 
-use Paranoia\Configuration\Gvp;
-use Paranoia\Exception\InvalidArgumentException;
-use Paranoia\Processor\Gvp\CancelResponseProcessor;
-use Paranoia\Processor\Gvp\PostAuthorizationResponseProcessor;
-use Paranoia\Processor\Gvp\PreAuthorizationResponseProcessor;
-use Paranoia\Processor\Gvp\RefundResponseProcessor;
-use Paranoia\Processor\Gvp\SaleResponseProcessor;
-use Paranoia\Processor\GvpProcessorFactory;
-use Paranoia\TransactionType;
+use Paranoia\Core\Exception\InvalidArgumentException;
+use Paranoia\Core\TransactionType;
+use Paranoia\Gvp\Configuration\Gvp;
+use Paranoia\Gvp\Processor\CancelResponseProcessor;
+use Paranoia\Gvp\Processor\PostAuthorizationResponseProcessor;
+use Paranoia\Gvp\Processor\PreAuthorizationResponseProcessor;
+use Paranoia\Gvp\Processor\RefundResponseProcessor;
+use Paranoia\Gvp\Processor\SaleResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class GvpProcessorFactoryTest extends TestCase
@@ -18,7 +17,7 @@ class GvpProcessorFactoryTest extends TestCase
     {
         /** @var Gvp $configuration */
         $configuration = $this->getMockBuilder(Gvp::class)->getMock();
-        $factory = new GvpProcessorFactory($configuration);
+        $factory = new \Paranoia\Gvp\GvpProcessorFactory($configuration);
         $this->assertInstanceOf(SaleResponseProcessor::class, $factory->createProcessor(TransactionType::SALE));
         $this->assertInstanceOf(RefundResponseProcessor::class, $factory->createProcessor(TransactionType::REFUND));
         $this->assertInstanceOf(CancelResponseProcessor::class, $factory->createProcessor(TransactionType::CANCEL));
@@ -30,10 +29,10 @@ class GvpProcessorFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        /** @var Gvp $configuration */
+        /** @var \Paranoia\Gvp\Configuration\Gvp $configuration */
         $configuration = $this->getMockBuilder(Gvp::class)->getMock();
 
-        $factory = new GvpProcessorFactory($configuration);
+        $factory = new \Paranoia\Gvp\GvpProcessorFactory($configuration);
         $factory->createProcessor('dummy');
     }
 }

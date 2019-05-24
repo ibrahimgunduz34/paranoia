@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\Posnet;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\Posnet\SaleResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Posnet\Processor\SaleResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class SaleResponseProcessorTest extends TestCase
@@ -52,7 +52,7 @@ class SaleResponseProcessorTest extends TestCase
     {
         /** @var AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new SaleResponseProcessor($configuration);
+        $processor = new \Paranoia\Posnet\Processor\SaleResponseProcessor($configuration);
 
         $this->expectException(BadResponseException::class);
         $processor->process($rawResponse);

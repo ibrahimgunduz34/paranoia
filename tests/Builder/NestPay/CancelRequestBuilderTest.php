@@ -1,13 +1,13 @@
 <?php
 namespace Paranoia\Test\Builder\NestPay;
 
-use Paranoia\Builder\NestPay\CancelRequestBuilder;
-use Paranoia\Configuration\NestPay as NestPayConfiguration;
-use Paranoia\Formatter\DecimalFormatter;
-use Paranoia\Formatter\IsoNumericCurrencyCodeFormatter;
-use Paranoia\Formatter\NestPay\ExpireDateFormatter;
-use Paranoia\Formatter\SingleDigitInstallmentFormatter;
-use Paranoia\Request\Request;
+use Paranoia\Core\Formatter\DecimalFormatter;
+use Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter;
+use Paranoia\Core\Formatter\SingleDigitInstallmentFormatter;
+use Paranoia\Core\Request\Request;
+use Paranoia\Nestpay\Builder\CancelRequestBuilder;
+use Paranoia\Nestpay\Configuration\NestPay as NestPayConfiguration;
+use Paranoia\Nestpay\Formatter\ExpireDateFormatter;
 use PHPUnit\Framework\TestCase;
 
 class CancelRequestBuilderTest extends TestCase

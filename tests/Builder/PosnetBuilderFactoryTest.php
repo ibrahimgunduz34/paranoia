@@ -1,15 +1,14 @@
 <?php
 namespace Paranoia\Test\Builder;
 
-use Paranoia\Builder\Posnet\CancelRequestBuilder;
-use Paranoia\Builder\Posnet\PostAuthorizationRequestBuilder;
-use Paranoia\Builder\Posnet\PreAuthorizationRequestBuilder;
-use Paranoia\Builder\Posnet\RefundRequestBuilder;
-use Paranoia\Builder\Posnet\SaleRequestBuilder;
-use Paranoia\Builder\PosnetBuilderFactory;
-use Paranoia\Configuration\Posnet as PosnetConfiguration;
-use Paranoia\Exception\NotImplementedError;
-use Paranoia\TransactionType;
+use Paranoia\Core\Exception\NotImplementedError;
+use Paranoia\Core\TransactionType;
+use Paranoia\Posnet\Builder\CancelRequestBuilder;
+use Paranoia\Posnet\Builder\PostAuthorizationRequestBuilder;
+use Paranoia\Posnet\Builder\PreAuthorizationRequestBuilder;
+use Paranoia\Posnet\Builder\RefundRequestBuilder;
+use Paranoia\Posnet\Builder\SaleRequestBuilder;
+use Paranoia\Posnet\Configuration\Posnet as PosnetConfiguration;
 use PHPUnit\Framework\TestCase;
 
 class PosnetBuilderFactoryTest extends TestCase
@@ -19,7 +18,7 @@ class PosnetBuilderFactoryTest extends TestCase
         /** @var PosnetConfiguration $configuration */
         $configuration = $this->getMockBuilder(PosnetConfiguration::class)->getMock();
 
-        $factory = new PosnetBuilderFactory($configuration);
+        $factory = new \Paranoia\Posnet\PosnetBuilderFactory($configuration);
         $this->assertInstanceOf(SaleRequestBuilder::class, $factory->createBuilder(TransactionType::SALE));
         $this->assertInstanceOf(RefundRequestBuilder::class, $factory->createBuilder(TransactionType::REFUND));
         $this->assertInstanceOf(CancelRequestBuilder::class, $factory->createBuilder(TransactionType::CANCEL));
@@ -34,7 +33,7 @@ class PosnetBuilderFactoryTest extends TestCase
         /** @var PosnetConfiguration $configuration */
         $configuration = $this->getMockBuilder(PosnetConfiguration::class)->getMock();
 
-        $factory = new PosnetBuilderFactory($configuration);
+        $factory = new \Paranoia\Posnet\PosnetBuilderFactory($configuration);
         $factory->createBuilder('Dummy');
     }
 

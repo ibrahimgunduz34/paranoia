@@ -1,7 +1,7 @@
 <?php
 namespace Paranoia\Test\Formatter\NestPay;
 
-use Paranoia\Formatter\NestPay\ExpireDateFormatter;
+use Paranoia\Nestpay\Formatter\ExpireDateFormatter;
 use PHPUnit\Framework\TestCase;
 
 class ExpireDateTest extends TestCase

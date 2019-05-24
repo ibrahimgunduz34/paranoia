@@ -1,8 +1,8 @@
 <?php
 namespace Paranoia\Test\Formatter\Posnet;
 
-use Paranoia\Exception\InvalidArgumentException;
-use Paranoia\Formatter\Posnet\OrderIdFormatter;
+use Paranoia\Core\Exception\InvalidArgumentException;
+use Paranoia\Posnet\Formatter\OrderIdFormatter;
 use PHPUnit\Framework\TestCase;
 
 class OrderIdFormatterTest extends TestCase

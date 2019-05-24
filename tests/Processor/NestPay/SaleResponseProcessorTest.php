@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\NestPay;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\NestPay\SaleResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Nestpay\Processor\SaleResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class SaleResponseProcessorTest extends TestCase
@@ -15,7 +15,7 @@ class SaleResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/nestpay/sale_successful.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new SaleResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
@@ -32,9 +32,9 @@ class SaleResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/nestpay/sale_failed.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new SaleResponseProcessor($configuration);
+        $processor = new \Paranoia\Nestpay\Processor\SaleResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(false, $response->isSuccess());
@@ -50,7 +50,7 @@ class SaleResponseProcessorTest extends TestCase
      */
     public function test_bad_response($rawResponse)
     {
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new SaleResponseProcessor($configuration);
 

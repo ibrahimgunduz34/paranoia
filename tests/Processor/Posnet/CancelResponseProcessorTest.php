@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\Posnet;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\Posnet\CancelResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Posnet\Processor\CancelResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class CancelResponseProcessorTest extends TestCase

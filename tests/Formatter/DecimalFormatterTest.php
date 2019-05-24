@@ -1,9 +1,9 @@
 <?php
 namespace Paranoia\Test\Formatter;
 
-use Paranoia\Formatter\DecimalFormatter;
+use Paranoia\Core\Exception\InvalidArgumentException;
+use Paranoia\Core\Formatter\DecimalFormatter;
 use PHPUnit\Framework\TestCase;
-use Paranoia\Exception\InvalidArgumentException;
 
 class DecimalFormatterTest extends TestCase
 {
@@ -23,7 +23,7 @@ class DecimalFormatterTest extends TestCase
 
     public function test_valid_input()
     {
-        $formatter = new DecimalFormatter();
+        $formatter = new \Paranoia\Core\Formatter\DecimalFormatter();
         $this->assertEquals('1.11', $formatter->format(1.114));
         $this->assertEquals('1.12', $formatter->format(1.115));
     }

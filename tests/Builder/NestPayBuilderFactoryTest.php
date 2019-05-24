@@ -1,15 +1,15 @@
 <?php
 namespace Paranoia\Test\Builder;
 
-use Paranoia\Builder\NestPay\CancelRequestBuilder;
-use Paranoia\Builder\NestPay\PostAuthorizationRequestBuilder;
-use Paranoia\Builder\NestPay\PreAuthorizationRequestBuilder;
-use Paranoia\Builder\NestPay\RefundRequestBuilder;
-use Paranoia\Builder\NestPay\SaleRequestBuilder;
-use Paranoia\Builder\NestPayBuilderFactory;
-use Paranoia\Configuration\NestPay as NestPayConfiguration;
-use Paranoia\Exception\NotImplementedError;
-use Paranoia\TransactionType;
+use Paranoia\Core\Exception\NotImplementedError;
+use Paranoia\Core\TransactionType;
+use Paranoia\Nestpay\Builder\CancelRequestBuilder;
+use Paranoia\Nestpay\Builder\PostAuthorizationRequestBuilder;
+use Paranoia\Nestpay\Builder\PreAuthorizationRequestBuilder;
+use Paranoia\Nestpay\Builder\RefundRequestBuilder;
+use Paranoia\Nestpay\Builder\SaleRequestBuilder;
+use Paranoia\Nestpay\Configuration\NestPay;
+use Paranoia\Nestpay\Configuration\NestPay as NestPayConfiguration;
 use PHPUnit\Framework\TestCase;
 
 
@@ -20,7 +20,7 @@ class NestPayBuilderFactoryTest extends TestCase
         /** @var NestPayConfiguration $configuration */
         $configuration = $this->getMockBuilder(NestPayConfiguration::class)->getMock();
 
-        $factory = new NestPayBuilderFactory($configuration);
+        $factory = new \Paranoia\Nestpay\NestPayBuilderFactory($configuration);
         $this->assertInstanceOf(SaleRequestBuilder::class, $factory->createBuilder(TransactionType::SALE));
         $this->assertInstanceOf(RefundRequestBuilder::class, $factory->createBuilder(TransactionType::REFUND));
         $this->assertInstanceOf(CancelRequestBuilder::class, $factory->createBuilder(TransactionType::CANCEL));
@@ -35,7 +35,7 @@ class NestPayBuilderFactoryTest extends TestCase
         /** @var NestPayConfiguration $configuration */
         $configuration = $this->getMockBuilder(NestPayConfiguration::class)->getMock();
 
-        $factory = new NestPayBuilderFactory($configuration);
+        $factory = new \Paranoia\Nestpay\NestPayBuilderFactory($configuration);
         $factory->createBuilder('Dummy');
     }
 }

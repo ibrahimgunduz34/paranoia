@@ -1,16 +1,16 @@
 <?php
 namespace Paranoia\Test\Builder\Posnet;
 
-use Paranoia\Builder\Posnet\RefundRequestBuilder;
-use Paranoia\Currency;
-use Paranoia\Formatter\MoneyFormatter;
-use Paranoia\Formatter\MultiDigitInstallmentFormatter;
-use Paranoia\Formatter\Posnet\CustomCurrencyCodeFormatter;
-use Paranoia\Formatter\Posnet\ExpireDateFormatter;
-use Paranoia\Formatter\Posnet\OrderIdFormatter;
-use Paranoia\Request\Request;
+use Paranoia\Core\Currency;
+use Paranoia\Core\Formatter\MoneyFormatter;
+use Paranoia\Core\Formatter\MultiDigitInstallmentFormatter;
+use Paranoia\Core\Request\Request;
+use Paranoia\Posnet\Builder\RefundRequestBuilder;
+use Paranoia\Posnet\Configuration\Posnet as PosnetConfiguration;
+use Paranoia\Posnet\Formatter\CustomCurrencyCodeFormatter;
+use Paranoia\Posnet\Formatter\ExpireDateFormatter;
+use Paranoia\Posnet\Formatter\OrderIdFormatter;
 use PHPUnit\Framework\TestCase;
-use Paranoia\Configuration\Posnet as PosnetConfiguration;
 
 class RefundRequestBuilderTest extends TestCase
 {

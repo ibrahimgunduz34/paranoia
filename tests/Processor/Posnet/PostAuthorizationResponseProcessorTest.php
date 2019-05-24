@@ -1,10 +1,9 @@
 <?php
 namespace Paranoia\Test\Processor\Posnet;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\Posnet\PostAuthorizationResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
 use PHPUnit\Framework\TestCase;
 
 class PostAuthorizationResponseProcessorTest extends TestCase
@@ -17,7 +16,7 @@ class PostAuthorizationResponseProcessorTest extends TestCase
 
         /** @var AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new PostAuthorizationResponseProcessor($configuration);
+        $processor = new \Paranoia\Posnet\Processor\PostAuthorizationResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(true, $response->isSuccess());
@@ -34,7 +33,7 @@ class PostAuthorizationResponseProcessorTest extends TestCase
 
         /** @var AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new PostAuthorizationResponseProcessor($configuration);
+        $processor = new \Paranoia\Posnet\Processor\PostAuthorizationResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(false, $response->isSuccess());
@@ -52,7 +51,7 @@ class PostAuthorizationResponseProcessorTest extends TestCase
     {
         /** @var AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new PostAuthorizationResponseProcessor($configuration);
+        $processor = new \Paranoia\Posnet\Processor\PostAuthorizationResponseProcessor($configuration);
 
         $this->expectException(BadResponseException::class);
         $processor->process($rawResponse);

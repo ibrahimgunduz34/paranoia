@@ -1,7 +1,7 @@
 <?php
 namespace Paranoia\Test\Formatter\Gvp;
 
-use Paranoia\Formatter\Gvp\ExpireDateFormatter;
+use Paranoia\Gvp\Formatter\ExpireDateFormatter;
 use PHPUnit\Framework\TestCase;
 
 class ExpireDateTest extends TestCase

@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\Gvp;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\Gvp\RefundResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Gvp\Processor\RefundResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class RefundResponseProcessorTest extends TestCase
@@ -15,7 +15,7 @@ class RefundResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/gvp/refund_successful.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new RefundResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
@@ -32,9 +32,9 @@ class RefundResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/gvp/refund_failed.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new RefundResponseProcessor($configuration);
+        $processor = new \Paranoia\Gvp\Processor\RefundResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals(false, $response->isSuccess());
@@ -50,7 +50,7 @@ class RefundResponseProcessorTest extends TestCase
      */
     public function test_bad_response($rawResponse)
     {
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new RefundResponseProcessor($configuration);
 

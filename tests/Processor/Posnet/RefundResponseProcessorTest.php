@@ -1,10 +1,10 @@
 <?php
 namespace Paranoia\Test\Processor\Posnet;
 
-use Paranoia\Configuration\AbstractConfiguration;
-use Paranoia\Exception\BadResponseException;
-use Paranoia\Processor\Posnet\RefundResponseProcessor;
-use Paranoia\Response;
+use Paranoia\Core\Configuration\AbstractConfiguration;
+use Paranoia\Core\Exception\BadResponseException;
+use Paranoia\Core\Response;
+use Paranoia\Posnet\Processor\RefundResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class RefundResponseProcessorTest extends TestCase
@@ -15,7 +15,7 @@ class RefundResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/posnet/refund_successful.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new RefundResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
@@ -32,7 +32,7 @@ class RefundResponseProcessorTest extends TestCase
             __DIR__ . '/../../samples/response/posnet/refund_failed.xml'
         );
 
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
         $processor = new RefundResponseProcessor($configuration);
         $response = $processor->process($rawResponse);
@@ -50,9 +50,9 @@ class RefundResponseProcessorTest extends TestCase
      */
     public function test_bad_response($rawResponse)
     {
-        /** @var AbstractConfiguration $configuration */
+        /** @var \Paranoia\Core\Configuration\AbstractConfiguration $configuration */
         $configuration = $this->getMockBuilder(AbstractConfiguration::class)->getMock();
-        $processor = new RefundResponseProcessor($configuration);
+        $processor = new \Paranoia\Posnet\Processor\RefundResponseProcessor($configuration);
 
         $this->expectException(BadResponseException::class);
         $processor->process($rawResponse);

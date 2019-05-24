@@ -1,9 +1,9 @@
 <?php
 namespace Paranoia\Test\Formatter;
 
-use Paranoia\Currency;
-use Paranoia\Exception\InvalidArgumentException;
-use Paranoia\Formatter\IsoNumericCurrencyCodeFormatter;
+use Paranoia\Core\Currency;
+use Paranoia\Core\Exception\InvalidArgumentException;
+use Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter;
 use PHPUnit\Framework\TestCase;
 
 class IsoNumericCurrencyCodeFormatterTest extends TestCase
@@ -20,8 +20,8 @@ class IsoNumericCurrencyCodeFormatterTest extends TestCase
         #TODO: Move this constants to another constant class.
         return [
             [Currency::CODE_EUR, IsoNumericCurrencyCodeFormatter::CODE_EUR],
-            [Currency::CODE_USD, IsoNumericCurrencyCodeFormatter::CODE_USD],
-            [Currency::CODE_TRY, IsoNumericCurrencyCodeFormatter::CODE_TRY],
+            [Currency::CODE_USD, \Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter::CODE_USD],
+            [Currency::CODE_TRY, \Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter::CODE_TRY],
         ];
     }
 
@@ -32,7 +32,7 @@ class IsoNumericCurrencyCodeFormatterTest extends TestCase
      */
     public function test_valid_input($currencyCode, $expected)
     {
-        $formatter = new IsoNumericCurrencyCodeFormatter();
+        $formatter = new \Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter();
         $this->assertEquals($expected, $formatter->format($currencyCode));
     }
 }

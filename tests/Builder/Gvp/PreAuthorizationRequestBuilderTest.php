@@ -1,17 +1,16 @@
 <?php
 namespace Paranoia\Test\Builder\Gvp;
 
-use Paranoia\Builder\Gvp\PreAuthorizationRequestBuilder;
-use Paranoia\Currency;
-use Paranoia\Formatter\Gvp\ExpireDate;
-use Paranoia\Formatter\Gvp\ExpireDateFormatter;
-use Paranoia\Formatter\IsoNumericCurrencyCodeFormatter;
-use Paranoia\Formatter\MoneyFormatter;
-use Paranoia\Formatter\SingleDigitInstallmentFormatter;
-use Paranoia\Request\Request;
-use Paranoia\Request\Resource\Card;
+use Paranoia\Core\Currency;
+use Paranoia\Core\Formatter\IsoNumericCurrencyCodeFormatter;
+use Paranoia\Core\Formatter\MoneyFormatter;
+use Paranoia\Core\Formatter\SingleDigitInstallmentFormatter;
+use Paranoia\Core\Request\Request;
+use Paranoia\Core\Request\Resource\Card;
+use Paranoia\Gvp\Builder\PreAuthorizationRequestBuilder;
+use Paranoia\Gvp\Configuration\Gvp as GvpConfiguration;
+use Paranoia\Gvp\Formatter\ExpireDateFormatter;
 use PHPUnit\Framework\TestCase;
-use Paranoia\Configuration\Gvp as GvpConfiguration;
 
 class PreAuthorizationRequestBuilderTest extends TestCase
 {

@@ -1,15 +1,15 @@
 <?php
 namespace Paranoia\Test\Processor;
 
-use Paranoia\Configuration\Posnet;
-use Paranoia\Exception\InvalidArgumentException;
-use Paranoia\Processor\Posnet\CancelResponseProcessor;
-use Paranoia\Processor\Posnet\PostAuthorizationResponseProcessor;
-use Paranoia\Processor\Posnet\PreAuthorizationResponseProcessor;
-use Paranoia\Processor\Posnet\RefundResponseProcessor;
-use Paranoia\Processor\Posnet\SaleResponseProcessor;
-use Paranoia\Processor\PosnetProcessorFactory;
-use Paranoia\TransactionType;
+use Paranoia\Core\Exception\InvalidArgumentException;
+use Paranoia\Core\TransactionType;
+use Paranoia\Posnet\Configuration\Posnet;
+use Paranoia\Posnet\PosnetProcessorFactory;
+use Paranoia\Posnet\Processor\CancelResponseProcessor;
+use Paranoia\Posnet\Processor\PostAuthorizationResponseProcessor;
+use Paranoia\Posnet\Processor\PreAuthorizationResponseProcessor;
+use Paranoia\Posnet\Processor\RefundResponseProcessor;
+use Paranoia\Posnet\Processor\SaleResponseProcessor;
 use PHPUnit\Framework\TestCase;
 
 class PosnetProcessorFactoryTest extends TestCase
