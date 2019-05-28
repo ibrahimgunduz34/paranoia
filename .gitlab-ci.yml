@@ -1,0 +1,43 @@
+image: php:5..6-alpine
+
+before_script:
+  - apk update
+  - apk add curl git unzip
+  - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  - composer install --dev --no-interaction --prefer-dist
+
+cache:
+  paths:
+    - vendor/
+
+stages:
+  - analysis
+  - test
+
+lint:
+  stage: analysis
+  script:
+    - find ./src/ -name "*.php" -exec php -l {} \;
+
+CodeSniffer:
+  stage: analysis
+  script:
+    - vendor/bin/phpcs --standard=PSR2 --report=full src
+
+php-5.6:
+  image: php:5.6-alpine
+  stage: test
+  script:
+    - vendor/bin/phpunit
+
+php-7.1:
+  image: php:7.1-alpine
+  stage: test
+  script:
+    - vendor/bin/phpunit
+
+php-7.3:
+  image: php:7.3-alpine
+  stage: test
+  script:
+    - vendor/bin/phpunit
