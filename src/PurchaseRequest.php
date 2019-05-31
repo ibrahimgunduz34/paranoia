@@ -16,7 +16,7 @@ class PurchaseRequest
     private $installment;
 
     /** @var string */
-    private$cardNumber;
+    private $cardNumber;
 
     /** @var integer */
     private $cardExpireMonth;

@@ -25,7 +25,7 @@ class Configuration
      */
     public function get($key)
     {
-        if(!array_key_exists($key, $this->collection)) {
+        if (!array_key_exists($key, $this->collection)) {
             throw new InvalidArgumentException("Unknown configuration $key");
         }
         return $this->collection[$key];

@@ -21,6 +21,5 @@ class Est
      */
     public function purchase(PurchaseRequest $request)
     {
-
     }
 }
