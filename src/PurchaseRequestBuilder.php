@@ -87,7 +87,8 @@ class PurchaseRequestBuilder extends BaseRequestBuilder
             $this->getRoot(),
             'Number',
             $cardNumber,
-            true);
+            true
+        );
         return $this;
     }
 
@@ -119,6 +120,4 @@ class PurchaseRequestBuilder extends BaseRequestBuilder
         );
         return $this;
     }
-
-
 }

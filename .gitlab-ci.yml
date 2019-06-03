@@ -17,12 +17,12 @@ stages:
 lint:
   stage: analysis
   script:
-    - find ./src/ -name "*.php" -exec php -l {} \;
+    - composer lint_check
 
 CodeSniffer:
   stage: analysis
   script:
-    - vendor/bin/phpcs --standard=PSR2 --report=full src
+    - composer cs_check
 
 php-5.6:
   image: php:5.6-alpine

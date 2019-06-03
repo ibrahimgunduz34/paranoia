@@ -34,7 +34,7 @@ abstract class AbstractXmlRequestBuilder
      * @param null $value
      * @return \DOMElement
      */
-    public function createElement(DOMNode $parent, $elementName, $value = null, $ignoreEmptyValue=false)
+    public function createElement(DOMNode $parent, $elementName, $value = null, $ignoreEmptyValue = false)
     {
         if ($ignoreEmptyValue === true && empty($value)) {
             return null;

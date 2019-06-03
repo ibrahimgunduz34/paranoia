@@ -23,5 +23,9 @@
       "Paranoia\\": "src/",
       "Paranoia\\Test\\": "test/"
     }
+  },
+  "scripts": {
+    "cs_check": "phpcs --standard=PSR2 --report=full src",
+    "lint_check": "find ./src/ -name \"*.php\" -exec php -l {} \\;"
   }
 }

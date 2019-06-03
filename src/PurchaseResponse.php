@@ -18,7 +18,7 @@ class PurchaseResponse
     /**
      * @return bool
      */
-    public function isApproved(): bool
+    public function isApproved()
     {
         return $this->isApproved;
     }
@@ -27,7 +27,7 @@ class PurchaseResponse
      * @param bool $isApproved
      * @return PurchaseResponse
      */
-    public function setIsApproved(bool $isApproved)
+    public function setIsApproved($isApproved)
     {
         $this->isApproved = $isApproved;
         return $this;
@@ -36,7 +36,7 @@ class PurchaseResponse
     /**
      * @return string
      */
-    public function getCode(): string
+    public function getCode()
     {
         return $this->code;
     }
@@ -45,7 +45,7 @@ class PurchaseResponse
      * @param string $code
      * @return PurchaseResponse
      */
-    public function setCode(string $code)
+    public function setCode($code)
     {
         $this->code = $code;
         return $this;
@@ -54,7 +54,7 @@ class PurchaseResponse
     /**
      * @return string
      */
-    public function getMessage(): string
+    public function getMessage()
     {
         return $this->message;
     }
@@ -63,7 +63,7 @@ class PurchaseResponse
      * @param string $message
      * @return PurchaseResponse
      */
-    public function setMessage(string $message)
+    public function setMessage($message)
     {
         $this->message = $message;
         return $this;
@@ -72,7 +72,7 @@ class PurchaseResponse
     /**
      * @return string
      */
-    public function getTransId(): string
+    public function getTransId()
     {
         return $this->transId;
     }
@@ -81,7 +81,7 @@ class PurchaseResponse
      * @param string $transId
      * @return PurchaseResponse
      */
-    public function setTransId(string $transId)
+    public function setTransId($transId)
     {
         $this->transId = $transId;
         return $this;
