@@ -21,5 +21,7 @@ class Est
      */
     public function purchase(PurchaseRequest $request)
     {
+        $requestFactory = new PurchaseRequestFactory($this->configuration);
+        $rawRequest = $requestFactory->create($request);
     }
 }
